@@ -3,6 +3,7 @@ package mcjty.restrictions.blocks;
 import mcjty.restrictions.Restrictions;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -32,6 +33,9 @@ public abstract class GenericBlock extends Block implements ITileEntityProvider 
         setRegistryName(name);
         setUnlocalizedName(Restrictions.MODID + "." + name);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setHardness(2.0f);
+        setSoundType(SoundType.METAL);
+        setHarvestLevel("pickaxe", 0);
     }
 
     @SideOnly(Side.CLIENT)

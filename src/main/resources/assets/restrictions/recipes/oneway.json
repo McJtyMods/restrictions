@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "restrictions:oneway"
+  },
+  "pattern": [
+    "srs",
+    "rPr",
+    "srs"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:rail"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "s": {
+      "item": "minecraft:slime_ball"
+    }
+  }
+}

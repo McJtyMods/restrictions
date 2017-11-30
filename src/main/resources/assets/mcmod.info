@@ -1,0 +1,16 @@
+[
+{
+  "modid": "restrictions",
+  "name": "Restrictions",
+  "description": "Restrictions",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["McJty"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

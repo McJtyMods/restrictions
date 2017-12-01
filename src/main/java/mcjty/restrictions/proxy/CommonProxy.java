@@ -53,7 +53,6 @@ public class CommonProxy {
         event.getRegistry().register(new AttractorBlock());
         GameRegistry.registerTileEntity(AttractorTileEntity.class, Restrictions.MODID + "_attractor");
         event.getRegistry().register(new OneWayBlock());
-        GameRegistry.registerTileEntity(OneWayTileEntity.class, Restrictions.MODID + "_oneway");
     }
 
     @SubscribeEvent

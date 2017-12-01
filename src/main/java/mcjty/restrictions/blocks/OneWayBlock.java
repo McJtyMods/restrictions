@@ -1,11 +1,11 @@
 package mcjty.restrictions.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -18,10 +18,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class OneWayBlock extends GenericBlock {
+public class OneWayBlock extends GenericBlockNoTE {
 
     public OneWayBlock() {
-        super("oneway", Material.IRON);
+        super("oneway");
     }
 
     @Override
@@ -37,6 +37,18 @@ public class OneWayBlock extends GenericBlock {
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return NULL_AABB;
+    }
+
+    public static final double SPEED = .2;
+
+    @Override
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+        EnumFacing direction = world.getBlockState(pos).getValue(GenericBlock.FACING);
+        if (!world.isRemote) {
+            entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
+        } else if (entity instanceof EntityPlayer) {
+            entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
+        }
     }
 
     @Override
@@ -72,12 +84,6 @@ public class OneWayBlock extends GenericBlock {
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new OneWayTileEntity();
     }
 
     @Override

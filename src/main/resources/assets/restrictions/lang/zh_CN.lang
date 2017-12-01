@@ -1,0 +1,5 @@
+tile.restrictions.pusher.name=推离方块
+tile.restrictions.attractor.name=吸引方块
+tile.restrictions.oneway.name=单向推动方块
+
+itemGroup.restrictions=Restrictions

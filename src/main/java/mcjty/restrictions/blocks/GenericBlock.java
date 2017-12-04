@@ -36,6 +36,7 @@ public abstract class GenericBlock extends Block implements ITileEntityProvider 
         setHardness(2.0f);
         setSoundType(SoundType.METAL);
         setHarvestLevel("pickaxe", 0);
+        setCreativeTab(Restrictions.creativeTab);
     }
 
     @SideOnly(Side.CLIENT)

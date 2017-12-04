@@ -28,6 +28,11 @@ public abstract class GenericTileEntity extends TileEntity implements ITickable 
         }
     }
 
+    @Override
+    public void onLoad() {
+        setPower(world.isBlockIndirectlyGettingPowered(pos));
+    }
+
     protected AxisAlignedBB getBox() {
         if (aabb == null) {
             EnumFacing direction = getWorld().getBlockState(getPos()).getValue(GenericBlock.FACING);

@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
         acceptedMinecraftVersions = "[1.12,1.13)")
 public class Restrictions {
     public static final String MODID = "restrictions";
-    public static final String VERSION = "0.0.2beta";
+    public static final String VERSION = "1.0.0";
     public static final String MIN_FORGE_VER = "14.22.0.2464";
 
     @SidedProxy(clientSide = "mcjty.restrictions.proxy.ClientProxy", serverSide = "mcjty.restrictions.proxy.ServerProxy")

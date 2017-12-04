@@ -2,6 +2,7 @@ package mcjty.restrictions.proxy;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import mcjty.restrictions.blocks.ModBlocks;
+import mcjty.restrictions.items.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -44,7 +45,7 @@ public class ClientProxy extends CommonProxy {
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
         ModBlocks.initModels();
-//        ModItems.initModels();
+        ModItems.initModels();
 //        ModEntities.initModels();
     }
 

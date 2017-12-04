@@ -1,10 +1,12 @@
 package mcjty.restrictions.blocks;
 
+import mcjty.restrictions.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -47,7 +49,10 @@ public class OneWayBlock extends GenericBlockNoTE {
         if (!world.isRemote) {
             entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
         } else if (entity instanceof EntityPlayer) {
-            entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
+            ItemStack boots = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.FEET);
+            if (boots.isEmpty() || boots.getItem() != ModItems.glassBoots) {
+                entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
+            }
         }
     }
 

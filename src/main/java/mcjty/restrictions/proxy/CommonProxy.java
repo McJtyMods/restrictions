@@ -3,6 +3,7 @@ package mcjty.restrictions.proxy;
 import com.google.common.util.concurrent.ListenableFuture;
 import mcjty.restrictions.Restrictions;
 import mcjty.restrictions.blocks.*;
+import mcjty.restrictions.items.GlassBoots;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -57,6 +58,7 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
+        event.getRegistry().register(new GlassBoots());
         event.getRegistry().register(new ItemBlock(ModBlocks.pusherBlock).setRegistryName(ModBlocks.pusherBlock.getRegistryName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.attractorBlock).setRegistryName(ModBlocks.attractorBlock.getRegistryName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.oneWayBlock).setRegistryName(ModBlocks.oneWayBlock.getRegistryName()));

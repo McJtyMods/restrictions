@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "restrictions:glassboots"
+  },
+  "pattern": [
+    "   ",
+    "p p",
+    "g g"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "p": {
+      "item": "minecraft:glass_pane"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    }
+  }
+}

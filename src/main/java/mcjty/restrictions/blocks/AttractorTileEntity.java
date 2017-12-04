@@ -1,7 +1,10 @@
 package mcjty.restrictions.blocks;
 
+import mcjty.restrictions.items.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
 import java.util.List;
@@ -24,7 +27,10 @@ public class AttractorTileEntity extends GenericTileEntity {
             if (power > 0) {
                 List<Entity> entities = world.getEntitiesWithinAABB(EntityPlayer.class, getBox());
                 for (Entity entity : entities) {
-                    entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
+                    ItemStack boots = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.FEET);
+                    if (boots.isEmpty() || boots.getItem() != ModItems.glassBoots) {
+                        entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
+                    }
                 }
             }
         }

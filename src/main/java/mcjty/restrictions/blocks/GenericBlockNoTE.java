@@ -30,6 +30,7 @@ public class GenericBlockNoTE extends Block {
         setHardness(2.0f);
         setSoundType(SoundType.GLASS);
         setHarvestLevel("pickaxe", 0);
+        setCreativeTab(Restrictions.creativeTab);
     }
 
     @SideOnly(Side.CLIENT)

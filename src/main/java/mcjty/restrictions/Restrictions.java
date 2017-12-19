@@ -1,8 +1,10 @@
 package mcjty.restrictions;
 
+import mcjty.lib.base.ModBase;
 import mcjty.restrictions.blocks.ModBlocks;
 import mcjty.restrictions.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -12,11 +14,14 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Restrictions.MODID, name = "Restrictions",
-        dependencies = "after:forge@[" + Restrictions.MIN_FORGE_VER + ",)",
+        dependencies =
+                "required-after:mcjtylib_ng@[" + Restrictions.MIN_MCJTYLIB_VER + ",);" +
+                "after:forge@[" + Restrictions.MIN_FORGE_VER + ",)",
         version = Restrictions.VERSION,
         acceptedMinecraftVersions = "[1.12,1.13)")
-public class Restrictions {
+public class Restrictions implements ModBase {
     public static final String MODID = "restrictions";
+    public static final String MIN_MCJTYLIB_VER = "2.5.0";
     public static final String VERSION = "1.0.0";
     public static final String MIN_FORGE_VER = "14.22.0.2464";
 
@@ -60,5 +65,15 @@ public class Restrictions {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
         this.proxy.postInit(e);
+    }
+
+    @Override
+    public String getModId() {
+        return Restrictions.MODID;
+    }
+
+    @Override
+    public void openManual(EntityPlayer entityPlayer, int i, String s) {
+        // @todo
     }
 }

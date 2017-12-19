@@ -1,6 +1,7 @@
 package mcjty.restrictions.proxy;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import mcjty.lib.McJtyLib;
 import mcjty.restrictions.Restrictions;
 import mcjty.restrictions.blocks.*;
 import mcjty.restrictions.items.GlassBoots;
@@ -27,6 +28,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
 //        MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers());
+        McJtyLib.preInit(e);
 
 //        File directory = e.getModConfigurationDirectory();
 //        config = new Configuration(new File(directory.getPath(), "meecreeps.cfg"));

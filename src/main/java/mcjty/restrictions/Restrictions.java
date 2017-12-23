@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
         acceptedMinecraftVersions = "[1.12,1.13)")
 public class Restrictions implements ModBase {
     public static final String MODID = "restrictions";
-    public static final String MIN_MCJTYLIB_VER = "2.5.0";
+    public static final String MIN_MCJTYLIB_VER = "2.5.3";
     public static final String VERSION = "1.0.0";
     public static final String MIN_FORGE_VER = "14.22.0.2464";
 

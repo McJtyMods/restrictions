@@ -5,17 +5,23 @@ import mcjty.lib.McJtyLib;
 import mcjty.restrictions.Restrictions;
 import mcjty.restrictions.blocks.*;
 import mcjty.restrictions.items.GlassBoots;
+import mcjty.restrictions.items.ModItems;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityPushedByWaterEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.concurrent.Callable;
@@ -80,6 +86,14 @@ public class CommonProxy {
 
     public ListenableFuture<Object> addScheduledTaskClient(Runnable runnableToSchedule) {
         throw new IllegalStateException("This should only be called from client side");
+    }
+
+    @SubscribeEvent
+    public static void onPushedByWater(EntityPushedByWaterEvent event) {
+        Entity entity = event.getEntity();
+        if(entity instanceof EntityLivingBase && ((EntityLivingBase)entity).getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() == ModItems.glassBoots) {
+            event.setResult(Result.DENY);
+        }
     }
 
 }

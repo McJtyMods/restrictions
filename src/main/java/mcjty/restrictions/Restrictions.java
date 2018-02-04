@@ -25,7 +25,7 @@ public class Restrictions implements ModBase {
     public static final String VERSION = "1.1.0";
     public static final String MIN_FORGE_VER = "14.22.0.2464";
 
-    @SidedProxy(clientSide = "mcjty.restrictions.proxy.ClientProxy", serverSide = "mcjty.restrictions.proxy.ServerProxy")
+    @SidedProxy(clientSide = "mcjty.restrictions.proxy.ClientProxy", serverSide = "mcjty.restrictions.proxy.CommonProxy")
     public static CommonProxy proxy;
 
     @Mod.Instance(MODID)

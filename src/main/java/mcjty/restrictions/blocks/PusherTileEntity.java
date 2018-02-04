@@ -1,39 +1,9 @@
 package mcjty.restrictions.blocks;
 
-import mcjty.restrictions.items.ModItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-
-import java.util.List;
-
 public class PusherTileEntity extends GenericTileEntity {
 
-    public static final double SPEED = .1;
-
-    @Override
-    public void update() {
-        EnumFacing direction = getWorld().getBlockState(getPos()).getValue(GenericBlock.FACING);
-        if (!world.isRemote) {
-            if (power > 0) {
-                List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, getBox());
-                for (Entity entity : entities) {
-                    entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
-                }
-            }
-        } else {
-            if (power > 0) {
-                List<Entity> entities = world.getEntitiesWithinAABB(EntityPlayer.class, getBox());
-                for (Entity entity : entities) {
-                    ItemStack boots = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.FEET);
-                    if (boots.isEmpty() || boots.getItem() != ModItems.glassBoots) {
-                        entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
-                    }
-                }
-            }
-        }
+    public PusherTileEntity() {
+        super(.1);
     }
 
 }

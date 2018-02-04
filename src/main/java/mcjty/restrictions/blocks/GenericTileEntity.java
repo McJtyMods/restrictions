@@ -1,6 +1,10 @@
 package mcjty.restrictions.blocks;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -9,12 +13,21 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
-public abstract class GenericTileEntity extends TileEntity implements ITickable {
+import mcjty.restrictions.items.ModItems;
+
+public class GenericTileEntity extends TileEntity implements ITickable {
 
     protected AxisAlignedBB aabb = null;
     protected int power = 0;
+    protected final double speed;
+
+    public GenericTileEntity(double speed) {
+        this.speed = speed;
+    }
 
     public int getPower() {
         return power;
@@ -67,6 +80,28 @@ public abstract class GenericTileEntity extends TileEntity implements ITickable 
         }
     }
 
+    @Override
+    public void update() {
+        EnumFacing direction = getWorld().getBlockState(getPos()).getValue(GenericBlock.FACING);
+        if (!world.isRemote) {
+            if (power > 0) {
+                List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, getBox());
+                for (Entity entity : entities) {
+                    entity.addVelocity(direction.getFrontOffsetX() * speed, direction.getFrontOffsetY() * speed, direction.getFrontOffsetZ() * speed);
+                }
+            }
+        } else {
+            if (power > 0) {
+                List<Entity> entities = world.getEntitiesWithinAABB(EntityPlayer.class, getBox());
+                for (Entity entity : entities) {
+                    ItemStack boots = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.FEET);
+                    if (boots.isEmpty() || boots.getItem() != ModItems.glassBoots) {
+                        entity.addVelocity(direction.getFrontOffsetX() * speed, direction.getFrontOffsetY() * speed, direction.getFrontOffsetZ() * speed);
+                    }
+                }
+            }
+        }
+    }
 
     public void markDirtyClient() {
         markDirty();

@@ -48,7 +48,7 @@ public class Restrictions implements ModBase {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
         logger = e.getModLog();
-        this.proxy.preInit(e);
+        proxy.preInit(e);
     }
 
     /**
@@ -56,7 +56,7 @@ public class Restrictions implements ModBase {
      */
     @Mod.EventHandler
     public void init(FMLInitializationEvent e) {
-        this.proxy.init(e);
+        proxy.init(e);
     }
 
     /**
@@ -64,7 +64,7 @@ public class Restrictions implements ModBase {
      */
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
-        this.proxy.postInit(e);
+        proxy.postInit(e);
     }
 
     @Override

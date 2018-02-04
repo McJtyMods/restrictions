@@ -37,7 +37,7 @@ public class OneWayBlock extends GenericBlockNoTE {
 
     @Nullable
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return NULL_AABB;
     }
 
@@ -86,6 +86,7 @@ public class OneWayBlock extends GenericBlockNoTE {
         return false;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
@@ -93,9 +94,9 @@ public class OneWayBlock extends GenericBlockNoTE {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-        if (blockState != iblockstate) {
+        if (state != iblockstate) {
             return true;
         }
         Block block = iblockstate.getBlock();
@@ -103,6 +104,6 @@ public class OneWayBlock extends GenericBlockNoTE {
             return false;
         }
 
-        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+        return super.shouldSideBeRendered(state, blockAccess, pos, side);
     }
 }

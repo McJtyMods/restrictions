@@ -177,13 +177,10 @@ public class GlassBootsModel extends ModelBiped {
         armor.bootsRight.isHidden = true;
         armor.bootsLeft.isHidden = true;
 
-        switch (slot) {
-            case FEET:
-                armor.bootsLeft.isHidden = false;
-                armor.bootsRight.isHidden = false;
-                modelBoots = armor;
-                break;
-
+        if (slot == EntityEquipmentSlot.FEET) {
+            armor.bootsLeft.isHidden = false;
+            armor.bootsRight.isHidden = false;
+            modelBoots = armor;
         }
         return armor;
     }

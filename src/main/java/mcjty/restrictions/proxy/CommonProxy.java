@@ -1,15 +1,12 @@
 package mcjty.restrictions.proxy;
 
-import com.google.common.util.concurrent.ListenableFuture;
-import mcjty.lib.McJtyLib;
+import mcjty.lib.proxy.AbstractCommonProxy;
 import mcjty.restrictions.Restrictions;
 import mcjty.restrictions.blocks.*;
 import mcjty.restrictions.items.GlassBoots;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -18,17 +15,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import java.util.concurrent.Callable;
-
 @Mod.EventBusSubscriber
-public class CommonProxy {
+public class CommonProxy extends AbstractCommonProxy {
 
-    // Config instance
-//    public static Configuration config;
-
+    @Override
     public void preInit(FMLPreInitializationEvent e) {
+        super.preInit(e);
 //        MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers());
-        McJtyLib.preInit(e);
 
 //        File directory = e.getModConfigurationDirectory();
 //        config = new Configuration(new File(directory.getPath(), "meecreeps.cfg"));
@@ -40,10 +33,14 @@ public class CommonProxy {
 //        ModEntities.init();
     }
 
+    @Override
     public void init(FMLInitializationEvent e) {
+        super.init(e);
     }
 
+    @Override
     public void postInit(FMLPostInitializationEvent e) {
+        super.postInit(e);
 //        if (config.hasChanged()) {
 //            config.save();
 //        }
@@ -65,21 +62,4 @@ public class CommonProxy {
         event.getRegistry().register(new ItemBlock(ModBlocks.attractorBlock).setRegistryName(ModBlocks.attractorBlock.getRegistryName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.oneWayBlock).setRegistryName(ModBlocks.oneWayBlock.getRegistryName()));
     }
-
-    public World getClientWorld() {
-        throw new IllegalStateException("This should only be called from client side");
-    }
-
-    public EntityPlayer getClientPlayer() {
-        throw new IllegalStateException("This should only be called from client side");
-    }
-
-    public <V> ListenableFuture<V> addScheduledTaskClient(Callable<V> callableToSchedule) {
-        throw new IllegalStateException("This should only be called from client side");
-    }
-
-    public ListenableFuture<Object> addScheduledTaskClient(Runnable runnableToSchedule) {
-        throw new IllegalStateException("This should only be called from client side");
-    }
-
 }

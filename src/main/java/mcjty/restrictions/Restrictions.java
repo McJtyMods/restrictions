@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class Restrictions implements ModBase {
     public static final String MODID = "restrictions";
     public static final String MIN_MCJTYLIB_VER = "3.0.0";
-    public static final String VERSION = "1.2.0-alpha";
+    public static final String VERSION = "1.2.0";
     public static final String MIN_FORGE_VER = "14.22.0.2464";
 
     @SidedProxy(clientSide = "mcjty.restrictions.proxy.ClientProxy", serverSide = "mcjty.restrictions.proxy.CommonProxy")

@@ -55,7 +55,7 @@ public class CommonProxy extends AbstractCommonProxy {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        ModFixs modFixs = FMLCommonHandler.instance().getDataFixer().init(Restrictions.MODID, 1);
+        ModFixs modFixs = FMLCommonHandler.instance().getDataFixer().init(Restrictions.MODID, 2);
 
         event.getRegistry().register(new PusherBlock());
         GameRegistry.registerTileEntity(PusherTileEntity.class, Restrictions.MODID + ":pusher");
@@ -71,7 +71,7 @@ public class CommonProxy extends AbstractCommonProxy {
         oldToNewIdMap.put("minecraft:" + Restrictions.MODID + "_pusher", Restrictions.MODID + ":pusher");
         oldToNewIdMap.put(Restrictions.MODID + "_attractor", Restrictions.MODID + ":attractor");
         oldToNewIdMap.put("minecraft:" + Restrictions.MODID + "_attractor", Restrictions.MODID + ":attractor");
-        modFixs.registerFix(FixTypes.BLOCK_ENTITY, new TileEntityNamespace(oldToNewIdMap, 1));
+        modFixs.registerFix(FixTypes.BLOCK_ENTITY, new TileEntityNamespace(oldToNewIdMap, 2));
     }
 
     @SubscribeEvent

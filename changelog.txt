@@ -1,3 +1,6 @@
+1.2.1:
+- Joseph fixed log warnings due to tile entities being registered with names like "minecraft:restrictions_pusher" instead of "restrictions:pusher".
+
 1.2.0:
 - Made compatible with the latest McJtyLib (3.0.0)
 

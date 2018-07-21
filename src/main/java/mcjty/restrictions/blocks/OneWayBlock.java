@@ -48,10 +48,16 @@ public class OneWayBlock extends GenericBlockNoTE {
         EnumFacing direction = world.getBlockState(pos).getValue(GenericBlock.FACING);
         if (!world.isRemote) {
             entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
+            if (direction == EnumFacing.UP && entity.motionY > -0.5D) {
+                entity.fallDistance = 1.0F;
+            }
         } else if (entity instanceof EntityPlayer) {
             ItemStack boots = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.FEET);
             if (boots.isEmpty() || boots.getItem() != ModItems.glassBoots) {
                 entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
+                if (direction == EnumFacing.UP && entity.motionY > -0.5D) {
+                    entity.fallDistance = 1.0F;
+                }
             }
         }
     }

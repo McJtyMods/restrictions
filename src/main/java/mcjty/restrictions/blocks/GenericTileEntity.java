@@ -88,6 +88,9 @@ public class GenericTileEntity extends TileEntity implements ITickable {
                 List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, getBox());
                 for (Entity entity : entities) {
                     entity.addVelocity(direction.getFrontOffsetX() * speed, direction.getFrontOffsetY() * speed, direction.getFrontOffsetZ() * speed);
+                    if (direction == EnumFacing.UP && entity.motionY > -0.5D) {
+                        entity.fallDistance = 1.0F;
+                    }
                 }
             }
         } else {
@@ -97,6 +100,9 @@ public class GenericTileEntity extends TileEntity implements ITickable {
                     ItemStack boots = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.FEET);
                     if (boots.isEmpty() || boots.getItem() != ModItems.glassBoots) {
                         entity.addVelocity(direction.getFrontOffsetX() * speed, direction.getFrontOffsetY() * speed, direction.getFrontOffsetZ() * speed);
+                        if (direction == EnumFacing.UP && entity.motionY > -0.5D) {
+                            entity.fallDistance = 1.0F;
+                        }
                     }
                 }
             }

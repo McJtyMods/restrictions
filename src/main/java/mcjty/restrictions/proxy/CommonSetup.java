@@ -1,16 +1,14 @@
 package mcjty.restrictions.proxy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import mcjty.lib.datafix.fixes.TileEntityNamespace;
-import mcjty.lib.proxy.AbstractCommonProxy;
+import mcjty.lib.setup.DefaultCommonSetup;
 import mcjty.restrictions.Restrictions;
 import mcjty.restrictions.blocks.*;
 import mcjty.restrictions.items.GlassBoots;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.datafix.FixTypes;
 import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.event.RegistryEvent;
@@ -22,8 +20,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Mod.EventBusSubscriber
-public class CommonProxy extends AbstractCommonProxy {
+public class CommonSetup extends DefaultCommonSetup {
 
     @Override
     public void preInit(FMLPreInitializationEvent e) {
@@ -38,6 +39,11 @@ public class CommonProxy extends AbstractCommonProxy {
 
         // Initialization of blocks and items typically goes here:
 //        ModEntities.init();
+    }
+
+    @Override
+    public void createTabs() {
+        createTab("restrictions", new ItemStack(ModBlocks.attractorBlock));
     }
 
     @Override

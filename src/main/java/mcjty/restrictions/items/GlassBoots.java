@@ -20,7 +20,7 @@ public class GlassBoots extends ItemArmor {
         super(ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.FEET);
         setRegistryName("glassboots");
         setUnlocalizedName(Restrictions.MODID + ".glassboots");
-        setCreativeTab(Restrictions.creativeTab);
+        setCreativeTab(Restrictions.setup.getTab());
     }
 
     @Override

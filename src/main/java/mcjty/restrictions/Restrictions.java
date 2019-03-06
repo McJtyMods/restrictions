@@ -1,17 +1,14 @@
 package mcjty.restrictions;
 
 import mcjty.lib.base.ModBase;
-import mcjty.restrictions.blocks.ModBlocks;
-import mcjty.restrictions.proxy.CommonProxy;
-import net.minecraft.creativetab.CreativeTabs;
+import mcjty.lib.proxy.CommonSetup;
+import mcjty.lib.proxy.IProxy;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Restrictions.MODID, name = "Restrictions",
         dependencies =
@@ -25,21 +22,12 @@ public class Restrictions implements ModBase {
     public static final String VERSION = "1.2.1";
     public static final String MIN_FORGE_VER = "14.22.0.2464";
 
-    @SidedProxy(clientSide = "mcjty.restrictions.proxy.ClientProxy", serverSide = "mcjty.restrictions.proxy.CommonProxy")
-    public static CommonProxy proxy;
+    @SidedProxy(clientSide = "mcjty.restrictions.proxy.ClientProxy", serverSide = "mcjty.restrictions.proxy.ServerProxy")
+    public static IProxy proxy;
+    public static CommonSetup setup = new CommonSetup();
 
     @Mod.Instance(MODID)
     public static Restrictions instance;
-
-    public static Logger logger;
-
-    public static CreativeTabs creativeTab = new CreativeTabs("restrictions") {
-        @Override
-        public ItemStack getTabIconItem() {
-            return new ItemStack(ModBlocks.attractorBlock);
-        }
-    };
-
 
     /**
      * Run before anything else. Read your config, create blocks, items, etc, and
@@ -47,7 +35,7 @@ public class Restrictions implements ModBase {
      */
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
-        logger = e.getModLog();
+        setup.preInit(e);
         proxy.preInit(e);
     }
 
@@ -56,6 +44,7 @@ public class Restrictions implements ModBase {
      */
     @Mod.EventHandler
     public void init(FMLInitializationEvent e) {
+        setup.init(e);
         proxy.init(e);
     }
 
@@ -64,6 +53,7 @@ public class Restrictions implements ModBase {
      */
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e) {
+        setup.postInit(e);
         proxy.postInit(e);
     }
 

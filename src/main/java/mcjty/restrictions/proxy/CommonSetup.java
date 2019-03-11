@@ -35,9 +35,7 @@ public class CommonSetup extends DefaultCommonSetup {
     }
 
     @Override
-    protected void setupModCompat() {
-
-    }
+    protected void setupModCompat() { }
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {

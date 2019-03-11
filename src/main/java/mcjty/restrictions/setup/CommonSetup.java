@@ -1,4 +1,4 @@
-package mcjty.restrictions.proxy;
+package mcjty.restrictions.setup;
 
 import mcjty.lib.datafix.fixes.TileEntityNamespace;
 import mcjty.lib.setup.DefaultCommonSetup;

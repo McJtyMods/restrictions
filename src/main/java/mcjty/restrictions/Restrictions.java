@@ -1,7 +1,7 @@
 package mcjty.restrictions;
 
 import mcjty.lib.base.ModBase;
-import mcjty.lib.proxy.CommonSetup;
+import mcjty.lib.setup.CommonSetup;
 import mcjty.lib.proxy.IProxy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Mod;

@@ -1,4 +1,4 @@
-package mcjty.restrictions.proxy;
+package mcjty.restrictions.setup;
 
 import mcjty.lib.setup.DefaultClientProxy;
 import mcjty.restrictions.blocks.ModBlocks;

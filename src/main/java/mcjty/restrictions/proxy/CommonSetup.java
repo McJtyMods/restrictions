@@ -14,8 +14,6 @@ import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -29,34 +27,11 @@ public class CommonSetup extends DefaultCommonSetup {
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
-//        MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers());
-
-//        File directory = e.getModConfigurationDirectory();
-//        config = new Configuration(new File(directory.getPath(), "meecreeps.cfg"));
-//        Config.readConfig();
-
-//        PacketHandler.registerMessages("meecreeps");
-
-        // Initialization of blocks and items typically goes here:
-//        ModEntities.init();
     }
 
     @Override
     public void createTabs() {
         createTab("restrictions", new ItemStack(ModBlocks.attractorBlock));
-    }
-
-    @Override
-    public void init(FMLInitializationEvent e) {
-        super.init(e);
-    }
-
-    @Override
-    public void postInit(FMLPostInitializationEvent e) {
-        super.postInit(e);
-//        if (config.hasChanged()) {
-//            config.save();
-//        }
     }
 
     @SubscribeEvent

@@ -1,7 +1,7 @@
 package mcjty.restrictions;
 
 import mcjty.lib.base.ModBase;
-import mcjty.lib.setup.CommonSetup;
+import mcjty.lib.setup.ModSetup;
 import mcjty.lib.proxy.IProxy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Mod;
@@ -24,7 +24,7 @@ public class Restrictions implements ModBase {
 
     @SidedProxy(clientSide = "mcjty.restrictions.setup.ClientProxy", serverSide = "mcjty.restrictions.setup.ServerProxy")
     public static IProxy proxy;
-    public static CommonSetup setup = new CommonSetup();
+    public static ModSetup setup = new ModSetup();
 
     @Mod.Instance(MODID)
     public static Restrictions instance;

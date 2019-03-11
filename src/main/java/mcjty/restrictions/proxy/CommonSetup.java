@@ -34,6 +34,11 @@ public class CommonSetup extends DefaultCommonSetup {
         createTab("restrictions", new ItemStack(ModBlocks.attractorBlock));
     }
 
+    @Override
+    protected void setupModCompat() {
+
+    }
+
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         ModFixs modFixs = FMLCommonHandler.instance().getDataFixer().init(Restrictions.MODID, 2);

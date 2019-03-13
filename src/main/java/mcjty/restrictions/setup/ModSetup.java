@@ -19,4 +19,9 @@ public class ModSetup extends DefaultModSetup {
 
     @Override
     protected void setupModCompat() { }
+
+    @Override
+    protected void setupConfig() {
+
+    }
 }

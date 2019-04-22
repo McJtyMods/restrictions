@@ -14,7 +14,7 @@ public class ModSetup extends DefaultModSetup {
 
     @Override
     public void createTabs() {
-        createTab("restrictions", new ItemStack(ModBlocks.attractorBlock));
+        createTab("restrictions", () -> new ItemStack(ModBlocks.attractorBlock));
     }
 
     @Override

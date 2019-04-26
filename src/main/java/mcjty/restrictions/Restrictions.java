@@ -18,8 +18,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
         acceptedMinecraftVersions = "[1.12,1.13)")
 public class Restrictions implements ModBase {
     public static final String MODID = "restrictions";
-    public static final String MIN_MCJTYLIB_VER = "3.0.0";
-    public static final String VERSION = "1.2.1";
+    public static final String MIN_MCJTYLIB_VER = "3.5.0";
+    public static final String VERSION = "1.3.0";
     public static final String MIN_FORGE_VER = "14.22.0.2464";
 
     @SidedProxy(clientSide = "mcjty.restrictions.setup.ClientProxy", serverSide = "mcjty.restrictions.setup.ServerProxy")

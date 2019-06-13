@@ -3,7 +3,7 @@ package mcjty.restrictions.blocks;
 public class PusherTileEntity extends GenericTileEntity {
 
     public PusherTileEntity() {
-        super(.1);
+        super(ModBlocks.TYPE_PUSHER, .1);
     }
 
 }

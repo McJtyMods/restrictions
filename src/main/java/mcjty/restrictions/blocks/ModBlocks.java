@@ -1,24 +1,20 @@
 package mcjty.restrictions.blocks;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
 
 public class ModBlocks {
 
-    @GameRegistry.ObjectHolder("restrictions:pusher")
+    @ObjectHolder("restrictions:pusher")
     public static PusherBlock pusherBlock;
 
-    @GameRegistry.ObjectHolder("restrictions:attractor")
+    @ObjectHolder("restrictions:attractor")
     public static AttractorBlock attractorBlock;
 
-    @GameRegistry.ObjectHolder("restrictions:oneway")
+    @ObjectHolder("restrictions:oneway")
     public static OneWayBlock oneWayBlock;
 
-    @SideOnly(Side.CLIENT)
-    public static void initModels() {
-        pusherBlock.initModel();
-        attractorBlock.initModel();
-        oneWayBlock.initModel();
-    }
+    public static TileEntityType<?> TYPE_ATTRACTOR;
+    public static TileEntityType<?> TYPE_PUSHER;
 }

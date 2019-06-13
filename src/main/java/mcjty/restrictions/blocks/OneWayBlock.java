@@ -1,21 +1,20 @@
 package mcjty.restrictions.blocks;
 
 import mcjty.restrictions.items.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -27,35 +26,35 @@ public class OneWayBlock extends GenericBlockNoTE {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-        super.addInformation(stack, player, tooltip, advanced);
-        tooltip.add("This block only allows entities");
-        tooltip.add("(items, mobs, players, ...)");
-        tooltip.add("to move in a certain direction");
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag advanced) {
+        super.addInformation(stack, world, tooltip, advanced);
+        tooltip.add(new StringTextComponent("This block only allows entities"));
+        tooltip.add(new StringTextComponent("(items, mobs, players, ...)"));
+        tooltip.add(new StringTextComponent("to move in a certain direction"));
     }
 
-
-    @Nullable
-    @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return NULL_AABB;
-    }
+//
+//    @Nullable
+//    @Override
+//    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+//        return NULL_AABB;
+//    }
 
     public static final double SPEED = .2;
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
-        EnumFacing direction = world.getBlockState(pos).getValue(GenericBlock.FACING);
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+        Direction direction = world.getBlockState(pos).get(GenericBlock.FACING);
         if (!world.isRemote) {
-            entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
-            if (direction == EnumFacing.UP && entity.motionY > -0.5D) {
+            entity.addVelocity(direction.getXOffset() * SPEED, direction.getYOffset() * SPEED, direction.getZOffset() * SPEED);
+            if (direction == Direction.UP && entity.getMotion().y > -0.5D) {
                 entity.fallDistance = 1.0F;
             }
-        } else if (entity instanceof EntityPlayer) {
-            ItemStack boots = ((EntityPlayer) entity).getItemStackFromSlot(EntityEquipmentSlot.FEET);
+        } else if (entity instanceof PlayerEntity) {
+            ItemStack boots = ((PlayerEntity) entity).getItemStackFromSlot(EquipmentSlotType.FEET);
             if (boots.isEmpty() || boots.getItem() != ModItems.glassBoots) {
-                entity.addVelocity(direction.getFrontOffsetX() * SPEED, direction.getFrontOffsetY() * SPEED, direction.getFrontOffsetZ() * SPEED);
-                if (direction == EnumFacing.UP && entity.motionY > -0.5D) {
+                entity.addVelocity(direction.getXOffset() * SPEED, direction.getYOffset() * SPEED, direction.getZOffset() * SPEED);
+                if (direction == Direction.UP && entity.getMotion().y > -0.5D) {
                     entity.fallDistance = 1.0F;
                 }
             }
@@ -63,53 +62,56 @@ public class OneWayBlock extends GenericBlockNoTE {
     }
 
     @Override
-    public boolean causesSuffocation(IBlockState state) {
+    public boolean causesSuffocation(BlockState state, IBlockReader reader, BlockPos pos) {
         return false;
     }
 
-    @Override
-    public boolean isBlockNormalCube(IBlockState state) {
-        return false;
-    }
+    // @todo 1.14
+//    @Override
+//    public boolean isBlockNormalCube(IBlockState state) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isNormalCube(IBlockState state) {
+//        return false;
+//    }
+
 
     @Override
-    public boolean isNormalCube(IBlockState state) {
-        return false;
-    }
-
-    @Override
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+    public boolean allowsMovement(BlockState state, IBlockReader reader, BlockPos pos, PathType type) {
         return true;
     }
 
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+//    @Override
+//    public boolean isOpaqueCube(IBlockState state) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isFullCube(IBlockState state) {
+//        return false;
+//    }
+
 
     @Override
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-        IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-        if (state != iblockstate) {
-            return true;
-        }
-        Block block = iblockstate.getBlock();
-        if (block == this) {
-            return false;
-        }
 
-        return super.shouldSideBeRendered(state, blockAccess, pos, side);
-    }
+//    @Override
+//    @SideOnly(Side.CLIENT)
+//    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, Direction side) {
+//        IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
+//        if (state != iblockstate) {
+//            return true;
+//        }
+//        Block block = iblockstate.getBlock();
+//        if (block == this) {
+//            return false;
+//        }
+//
+//        return super.shouldSideBeRendered(state, blockAccess, pos, side);
+//    }
 }

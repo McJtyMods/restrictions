@@ -1,61 +1,39 @@
 package mcjty.restrictions;
 
 import mcjty.lib.base.ModBase;
+import mcjty.lib.setup.IProxy;
 import mcjty.lib.setup.ModSetup;
-import mcjty.lib.proxy.IProxy;
-import net.minecraft.entity.player.EntityPlayer;
+import mcjty.restrictions.setup.ClientProxy;
+import mcjty.restrictions.setup.ServerProxy;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(modid = Restrictions.MODID, name = "Restrictions",
-        dependencies =
-                "required-after:mcjtylib_ng@[" + Restrictions.MIN_MCJTYLIB_VER + ",);" +
-                "after:forge@[" + Restrictions.MIN_FORGE_VER + ",)",
-        version = Restrictions.VERSION,
-        acceptedMinecraftVersions = "[1.12,1.13)")
+
+@Mod(Restrictions.MODID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Restrictions implements ModBase {
-    public static final String MODID = "restrictions";
-    public static final String MIN_MCJTYLIB_VER = "3.5.0";
-    public static final String VERSION = "1.3.0";
-    public static final String MIN_FORGE_VER = "14.22.0.2464";
 
-    @SidedProxy(clientSide = "mcjty.restrictions.setup.ClientProxy", serverSide = "mcjty.restrictions.setup.ServerProxy")
-    public static IProxy proxy;
+    public static final String MODID = "restrictions";
+
+    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
     public static ModSetup setup = new ModSetup();
 
-    @Mod.Instance(MODID)
     public static Restrictions instance;
 
-    /**
-     * Run before anything else. Read your config, create blocks, items, etc, and
-     * register them with the GameRegistry.
-     */
-    @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent e) {
-        setup.preInit(e);
-        proxy.preInit(e);
+    public Restrictions() {
+        instance = this;
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
     }
 
-    /**
-     * Do your mod setup. Build whatever data structures you care about. Register recipes.
-     */
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent e) {
-        setup.init(e);
-        proxy.init(e);
+    public void init(final FMLCommonSetupEvent event) {
+        setup.init(event);
+        proxy.init(event);
     }
 
-    /**
-     * Handle interaction with other mods, complete your setup based on this.
-     */
-    @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent e) {
-        setup.postInit(e);
-        proxy.postInit(e);
-    }
 
     @Override
     public String getModId() {
@@ -63,7 +41,7 @@ public class Restrictions implements ModBase {
     }
 
     @Override
-    public void openManual(EntityPlayer entityPlayer, int i, String s) {
+    public void openManual(PlayerEntity entityPlayer, int i, String s) {
         // @todo
     }
 }

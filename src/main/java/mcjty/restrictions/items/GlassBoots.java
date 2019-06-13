@@ -1,45 +1,46 @@
 package mcjty.restrictions.items;
 
 import mcjty.restrictions.Restrictions;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class GlassBoots extends ItemArmor {
+public class GlassBoots extends ArmorItem {
 
     public GlassBoots() {
-        super(ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.FEET);
+        super(ArmorMaterial.LEATHER, EquipmentSlotType.FEET, new Properties());
         setRegistryName("glassboots");
-        setUnlocalizedName(Restrictions.MODID + ".glassboots");
-        setCreativeTab(Restrictions.setup.getTab());
+//        setCreativeTab(Restrictions.setup.getTab());
     }
 
     @Override
-    public void addInformation(ItemStack itemStack, World player, List<String> list, ITooltipFlag advancedToolTip) {
-        super.addInformation(itemStack, player, list, advancedToolTip);
-        list.add("If you were these boots the Attractor,");
-        list.add("Pusher and One Way will have no effect");
-        list.add("on you");
+    public void addInformation(ItemStack itemStack, World world, List<ITextComponent> list, ITooltipFlag advancedToolTip) {
+        super.addInformation(itemStack, world, list, advancedToolTip);
+        list.add(new StringTextComponent("If you were these boots the Attractor,"));
+        list.add(new StringTextComponent("Pusher and One Way will have no effect"));
+        list.add(new StringTextComponent("on you"));
     }
 
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
         return Restrictions.MODID+":textures/items/textureboots.png";
     }
 
-    @SideOnly(Side.CLIENT)
+    @Nullable
     @Override
-    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-        return GlassBootsModel.getModel(entityLiving, itemStack);
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
+        return (A) GlassBootsModel.getModel(entityLiving, itemStack);
     }
 
 

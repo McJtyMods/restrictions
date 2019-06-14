@@ -12,6 +12,9 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
@@ -72,34 +75,24 @@ public class OneWayBlock extends GenericBlockNoTE {
         return false;
     }
 
-    // @todo 1.14
-//    @Override
-//    public boolean isBlockNormalCube(IBlockState state) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean isNormalCube(IBlockState state) {
-//        return false;
-//    }
-
-
     @SuppressWarnings("deprecation")
     @Override
     public boolean allowsMovement(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, PathType type) {
         return true;
     }
 
-//    @Override
-//    public boolean isOpaqueCube(IBlockState state) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean isFullCube(IBlockState state) {
-//        return false;
-//    }
+    @SuppressWarnings("deprecation")
+    @Override
+    public int getOpacity(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
+        return 0;   // Let light pass through
+    }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    @Nonnull
+    public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
+        return VoxelShapes.empty();
+    }
 
     @SuppressWarnings("deprecation")
     @Override
@@ -107,20 +100,4 @@ public class OneWayBlock extends GenericBlockNoTE {
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
-
-
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, Direction side) {
-//        IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-//        if (state != iblockstate) {
-//            return true;
-//        }
-//        Block block = iblockstate.getBlock();
-//        if (block == this) {
-//            return false;
-//        }
-//
-//        return super.shouldSideBeRendered(state, blockAccess, pos, side);
-//    }
 }

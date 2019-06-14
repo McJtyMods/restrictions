@@ -1,12 +1,12 @@
 {
   "parent": "block/cube",
   "textures": {
-    "particle": "restrictions:blocks/sideone",
-    "down": "restrictions:blocks/sideone",
-    "up": "restrictions:blocks/sideone",
-    "east": "restrictions:blocks/sideone",
-    "west": "restrictions:blocks/sideone",
-    "north": "restrictions:blocks/onewayn",
-    "south": "restrictions:blocks/oneways"
+    "particle": "restrictions:block/sideone",
+    "down": "restrictions:block/sideone",
+    "up": "restrictions:block/sideone",
+    "east": "restrictions:block/sideone",
+    "west": "restrictions:block/sideone",
+    "north": "restrictions:block/onewayn",
+    "south": "restrictions:block/oneways"
   }
 }

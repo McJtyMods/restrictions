@@ -16,8 +16,6 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Restrictions.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Registration {
 
-    public static void init() {}
-
     @SubscribeEvent
     public static void registerBlocks(final RegistryEvent.Register<Block> event) {
         event.getRegistry().register(new PusherBlock());
@@ -29,11 +27,12 @@ public class Registration {
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new GlassBoots());
         Item.Properties properties = new Item.Properties().group(Restrictions.setup.getTab());
-        event.getRegistry().register(new BlockItem(ModBlocks.pusherBlock, properties).setRegistryName(ModBlocks.pusherBlock.getRegistryName()));
-        event.getRegistry().register(new BlockItem(ModBlocks.attractorBlock, properties).setRegistryName(ModBlocks.attractorBlock.getRegistryName()));
-        event.getRegistry().register(new BlockItem(ModBlocks.oneWayBlock, properties).setRegistryName(ModBlocks.oneWayBlock.getRegistryName()));
+        event.getRegistry().register(new BlockItem(ModBlocks.PUSHER_BLOCK, properties).setRegistryName(PusherBlock.REGNAME));
+        event.getRegistry().register(new BlockItem(ModBlocks.ATTRACTOR_BLOCK, properties).setRegistryName(AttractorBlock.REGNAME));
+        event.getRegistry().register(new BlockItem(ModBlocks.ONEWAY_BLOCK, properties).setRegistryName(OneWayBlock.REGNAME));
     }
 
+    @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void registerTiles(final RegistryEvent.Register<TileEntityType<?>> registry) {
         registry.getRegistry().register(ModBlocks.TYPE_ATTRACTOR = TileEntityType.Builder.create(AttractorTileEntity::new).build(null).setRegistryName(new ResourceLocation(Restrictions.MODID, "attractor")));

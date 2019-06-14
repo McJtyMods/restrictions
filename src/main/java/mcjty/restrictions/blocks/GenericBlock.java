@@ -6,8 +6,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -18,8 +18,6 @@ import javax.annotation.Nullable;
 
 public abstract class GenericBlock extends Block {
 
-    public static final DirectionProperty FACING = DirectionProperty.create("facing");
-
     public GenericBlock(String name) {
         this(name, Material.IRON);
     }
@@ -27,21 +25,21 @@ public abstract class GenericBlock extends Block {
     public GenericBlock(String name, Material material) {
         super(Properties.create(material).hardnessAndResistance(2.0f).sound(SoundType.METAL));
         setRegistryName(name);
-//        setDefaultState(blockState.getBaseState().withProperty(FACING, Direction.NORTH));
-//        setCreativeTab(Restrictions.setup.getTab());
+        setDefaultState(this.stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.NORTH));
     }
 
     @Nullable
     @Override
-    public ToolType getHarvestTool(BlockState p_getHarvestTool_1_) {
+    public ToolType getHarvestTool(BlockState state) {
         return ToolType.PICKAXE;
     }
 
     @Override
-    public int getHarvestLevel(BlockState p_getHarvestLevel_1_) {
+    public int getHarvestLevel(BlockState state) {
         return 0;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean what) {
         checkRedstone(world, pos);
@@ -58,7 +56,9 @@ public abstract class GenericBlock extends Block {
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-        world.setBlockState(pos, state.with(FACING, getFacingFromEntity(pos, entity)), 2);
+        if (entity != null) {
+            world.setBlockState(pos, state.with(BlockStateProperties.FACING, getFacingFromEntity(pos, entity)), 2);
+        }
     }
 
     public static Direction getFacingFromEntity(BlockPos clickedBlock, LivingEntity entity) {
@@ -68,6 +68,6 @@ public abstract class GenericBlock extends Block {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
-        builder.add(FACING);
+        builder.add(BlockStateProperties.FACING);
     }
 }

@@ -4,16 +4,17 @@ package mcjty.restrictions.blocks;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
+@SuppressWarnings("PublicField")
 public class ModBlocks {
 
     @ObjectHolder("restrictions:pusher")
-    public static PusherBlock pusherBlock;
+    public static PusherBlock PUSHER_BLOCK;
 
     @ObjectHolder("restrictions:attractor")
-    public static AttractorBlock attractorBlock;
+    public static AttractorBlock ATTRACTOR_BLOCK;
 
     @ObjectHolder("restrictions:oneway")
-    public static OneWayBlock oneWayBlock;
+    public static OneWayBlock ONEWAY_BLOCK;
 
     public static TileEntityType<?> TYPE_ATTRACTOR;
     public static TileEntityType<?> TYPE_PUSHER;

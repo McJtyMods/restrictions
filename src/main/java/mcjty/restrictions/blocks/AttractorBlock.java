@@ -13,8 +13,10 @@ import java.util.List;
 
 public class AttractorBlock extends GenericBlock {
 
+    public static final String REGNAME = "attractor";
+
     public AttractorBlock() {
-        super("attractor");
+        super(REGNAME);
     }
 
     @Nullable

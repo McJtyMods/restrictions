@@ -6,8 +6,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,12 +17,10 @@ import javax.annotation.Nullable;
 
 public class GenericBlockNoTE extends Block {
 
-    public static final DirectionProperty FACING = DirectionProperty.create("facing");
-
     public GenericBlockNoTE(String name) {
         super(Properties.create(Material.GLASS).hardnessAndResistance(2.0f).sound(SoundType.GLASS));
         setRegistryName(name);
-//        setCreativeTab(Restrictions.setup.getTab());
+        setDefaultState(this.stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.NORTH));
     }
 
     @Nullable
@@ -38,7 +36,9 @@ public class GenericBlockNoTE extends Block {
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-        world.setBlockState(pos, state.with(FACING, getFacingFromEntity(pos, entity)), 2);
+        if (entity != null) {
+            world.setBlockState(pos, state.with(BlockStateProperties.FACING, getFacingFromEntity(pos, entity)), 2);
+        }
     }
 
     public static Direction getFacingFromEntity(BlockPos clickedBlock, LivingEntity entity) {
@@ -49,6 +49,6 @@ public class GenericBlockNoTE extends Block {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
-        builder.add(FACING);
+        builder.add(BlockStateProperties.FACING);
     }
 }

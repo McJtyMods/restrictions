@@ -9,27 +9,29 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+
 public class GlassBootsModel extends BipedModel<LivingEntity> {
 
-    public static GlassBootsModel modelBoots;
+    private static GlassBootsModel modelBoots;
 
     private RendererModel bootsLeft;
     private RendererModel bootsRight;
 
 
     // Boots
-    RendererModel bootsleftfootbase;
-    RendererModel bootsrightfootbase;
-    RendererModel bootsleftback;
-    RendererModel bootsrightback;
-    RendererModel bootsleftfront;
-    RendererModel bootsrightfront;
-    RendererModel bootsrightside2;
-    RendererModel bootsleftside2;
-    RendererModel bootsleftside1;
-    RendererModel bootsrightside1;
-    RendererModel bootslefttip;
-    RendererModel bootsrighttip;
+    private RendererModel bootsleftfootbase;
+    private RendererModel bootsrightfootbase;
+    private RendererModel bootsleftback;
+    private RendererModel bootsrightback;
+    private RendererModel bootsleftfront;
+    private RendererModel bootsrightfront;
+    private RendererModel bootsrightside2;
+    private RendererModel bootsleftside2;
+    private RendererModel bootsleftside1;
+    private RendererModel bootsrightside1;
+    private RendererModel bootslefttip;
+    private RendererModel bootsrighttip;
 
     public GlassBootsModel() {
         textureWidth = 64;
@@ -152,7 +154,7 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
         model.rotateAngleZ = z;
     }
 
-    public static BipedModel getModel(LivingEntity entity, ItemStack stack) {
+    public static <A extends BipedModel<?>> A getModel(LivingEntity entity, ItemStack stack) {
 
         if (stack.isEmpty() || !(stack.getItem() instanceof ArmorItem)) {
             return null;
@@ -160,7 +162,8 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
         EquipmentSlotType slot = ((ArmorItem) stack.getItem()).getEquipmentSlot();
 
         if (slot == EquipmentSlotType.FEET && modelBoots != null) {
-            return modelBoots;
+            //noinspection unchecked
+            return (A) modelBoots;
         }
 
         GlassBootsModel armor = new GlassBootsModel();
@@ -181,11 +184,12 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
             armor.bootsRight.isHidden = false;
             modelBoots = armor;
         }
-        return armor;
+        //noinspection unchecked
+        return (A) armor;
     }
 
     @Override
-    public void render(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    public void render(@Nonnull LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         this.isSneak = entity.isSneaking();
         this.isSitting = entity.isPassenger();
 

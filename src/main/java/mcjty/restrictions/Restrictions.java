@@ -4,7 +4,6 @@ import mcjty.lib.base.ModBase;
 import mcjty.lib.setup.IProxy;
 import mcjty.restrictions.setup.ClientProxy;
 import mcjty.restrictions.setup.ModSetup;
-import mcjty.restrictions.setup.Registration;
 import mcjty.restrictions.setup.ServerProxy;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.fml.DistExecutor;
@@ -19,14 +18,12 @@ public class Restrictions implements ModBase {
 
     public static final String MODID = "restrictions";
 
+    @SuppressWarnings("PublicField")
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+    @SuppressWarnings("PublicField")
     public static ModSetup setup = new ModSetup();
 
-    public static Restrictions instance;
-
     public Restrictions() {
-        instance = this;
-
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
     }
 

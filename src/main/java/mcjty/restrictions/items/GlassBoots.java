@@ -18,10 +18,11 @@ import java.util.List;
 
 public class GlassBoots extends ArmorItem {
 
+    public static final String REGNAME = "glassboots";
+
     public GlassBoots() {
-        super(ArmorMaterial.LEATHER, EquipmentSlotType.FEET, new Properties());
-        setRegistryName("glassboots");
-//        setCreativeTab(Restrictions.setup.getTab());
+        super(ArmorMaterial.LEATHER, EquipmentSlotType.FEET, new Properties().group(Restrictions.setup.getTab()));
+        setRegistryName(REGNAME);
     }
 
     @Override
@@ -34,13 +35,13 @@ public class GlassBoots extends ArmorItem {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-        return Restrictions.MODID+":textures/items/textureboots.png";
+        return Restrictions.MODID+":textures/item/textureboots.png";
     }
 
     @Nullable
     @Override
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-        return (A) GlassBootsModel.getModel(entityLiving, itemStack);
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A def) {
+        return GlassBootsModel.getModel(entityLiving, itemStack);
     }
 
 

@@ -1,6 +1,6 @@
 package mcjty.restrictions.blocks;
 
-import mcjty.restrictions.items.ModItems;
+import mcjty.restrictions.items.GlassBoots;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.Entity;
@@ -10,19 +10,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class GenericTileEntity extends TileEntity implements ITickable {
 
-    protected AxisAlignedBB aabb = null;
-    protected int power = 0;
-    protected final double speed;
+    private AxisAlignedBB aabb = null;
+    private int power = 0;
+    private final double speed;
 
     public GenericTileEntity(TileEntityType<?> type, double speed) {
         super(type);
@@ -44,12 +46,14 @@ public class GenericTileEntity extends TileEntity implements ITickable {
 
     @Override
     public void onLoad() {
+        assert world != null;
         setPower(world.getRedstonePowerFromNeighbors(pos));
     }
 
     protected AxisAlignedBB getBox() {
         if (aabb == null) {
-            Direction direction = getWorld().getBlockState(getPos()).get(GenericBlock.FACING);
+            assert world != null;
+            Direction direction = world.getBlockState(getPos()).get(BlockStateProperties.FACING);
             aabb = new AxisAlignedBB(getPos().offset(direction));
             if (power > 1) {
                 aabb = aabb.union(new AxisAlignedBB(getPos().offset(direction, power)));
@@ -60,6 +64,7 @@ public class GenericTileEntity extends TileEntity implements ITickable {
     }
 
     @Override
+    @Nonnull
     public CompoundNBT getUpdateTag() {
         return write(new CompoundNBT());
     }
@@ -84,7 +89,8 @@ public class GenericTileEntity extends TileEntity implements ITickable {
 
     @Override
     public void tick() {
-        Direction direction = getWorld().getBlockState(getPos()).get(GenericBlock.FACING);
+        assert world != null;
+        Direction direction = world.getBlockState(getPos()).get(BlockStateProperties.FACING);
         if (!world.isRemote) {
             if (power > 0) {
                 List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, getBox());
@@ -100,7 +106,7 @@ public class GenericTileEntity extends TileEntity implements ITickable {
                 List<Entity> entities = world.getEntitiesWithinAABB(PlayerEntity.class, getBox());
                 for (Entity entity : entities) {
                     ItemStack boots = ((PlayerEntity) entity).getItemStackFromSlot(EquipmentSlotType.FEET);
-                    if (boots.isEmpty() || boots.getItem() != ModItems.glassBoots) {
+                    if (boots.isEmpty() || !(boots.getItem() instanceof GlassBoots)) {
                         entity.addVelocity(direction.getXOffset() * speed, direction.getYOffset() * speed, direction.getZOffset() * speed);
                         if (direction == Direction.UP && entity.getMotion().y > -0.5D) {
                             entity.fallDistance = 1.0F;
@@ -113,15 +119,15 @@ public class GenericTileEntity extends TileEntity implements ITickable {
 
     public void markDirtyClient() {
         markDirty();
-        if (getWorld() != null) {
-            BlockState state = getWorld().getBlockState(getPos());
-            getWorld().notifyBlockUpdate(getPos(), state, state, 3);
+        if (world != null) {
+            BlockState state = world.getBlockState(getPos());
+            world.notifyBlockUpdate(getPos(), state, state, 3);
         }
     }
 
     public void markDirtyQuick() {
-        if (getWorld() != null) {
-            getWorld().markChunkDirty(this.pos, this);
+        if (world != null) {
+            world.markChunkDirty(this.pos, this);
         }
     }
 
@@ -132,6 +138,7 @@ public class GenericTileEntity extends TileEntity implements ITickable {
     }
 
     @Override
+    @Nonnull
     public CompoundNBT write(CompoundNBT compound) {
         compound.putInt("power", power);
         return super.write(compound);

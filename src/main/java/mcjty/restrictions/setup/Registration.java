@@ -13,18 +13,20 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = Restrictions.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Registration {
 
+    public static void init() {}
+
     @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event) {
+    public static void registerBlocks(final RegistryEvent.Register<Block> event) {
         event.getRegistry().register(new PusherBlock());
         event.getRegistry().register(new AttractorBlock());
         event.getRegistry().register(new OneWayBlock());
     }
 
     @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
+    public static void registerItems(final RegistryEvent.Register<Item> event) {
         event.getRegistry().register(new GlassBoots());
         Item.Properties properties = new Item.Properties().group(Restrictions.setup.getTab());
         event.getRegistry().register(new BlockItem(ModBlocks.pusherBlock, properties).setRegistryName(ModBlocks.pusherBlock.getRegistryName()));

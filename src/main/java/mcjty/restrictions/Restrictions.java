@@ -2,8 +2,9 @@ package mcjty.restrictions;
 
 import mcjty.lib.base.ModBase;
 import mcjty.lib.setup.IProxy;
-import mcjty.lib.setup.ModSetup;
 import mcjty.restrictions.setup.ClientProxy;
+import mcjty.restrictions.setup.ModSetup;
+import mcjty.restrictions.setup.Registration;
 import mcjty.restrictions.setup.ServerProxy;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.fml.DistExecutor;

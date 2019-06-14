@@ -84,10 +84,15 @@ minecraft {
     }
 }
 
+
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compile ("mcjty.theoneprobe:TheOneProbe-${top_version}")
-    deobf("com.github.mcjty:mcjtylib:${mcjtylib_version}")
+    compile fg.deobf (project.dependencies.create("mcjty.theoneprobe:TheOneProbe-${top_version}") {
+        transitive = false
+    })
+    compile fg.deobf (project.dependencies.create("com.github.mcjty:mcjtylib:${mcjtylib_version}") {
+        transitive = false
+    })
     //deobfCompile "mezz.jei:jei_${jei_version}"
     //deobfCompile "mcp.mobius.waila:Hwyla:${waila_version}"
     //deobfCompile "mcjty.theoneprobe:TheOneProbe-${top_version}"

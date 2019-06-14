@@ -4,8 +4,6 @@
     "model": "restrictions:block/attractor"
   },
   "variants": {
-    "normal": [{}],
-    "inventory": [{}],
     "facing": {
       "north": {},
       "south": {"y": 180},

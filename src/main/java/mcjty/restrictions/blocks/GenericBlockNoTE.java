@@ -2,8 +2,6 @@ package mcjty.restrictions.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -17,8 +15,8 @@ import javax.annotation.Nullable;
 
 public class GenericBlockNoTE extends Block {
 
-    public GenericBlockNoTE(String name) {
-        super(Properties.create(Material.GLASS).hardnessAndResistance(2.0f).sound(SoundType.GLASS));
+    public GenericBlockNoTE(String name, Block.Properties properties) {
+        super(properties);
         setRegistryName(name);
         setDefaultState(this.stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.NORTH));
     }

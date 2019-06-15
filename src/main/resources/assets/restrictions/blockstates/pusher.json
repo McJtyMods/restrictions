@@ -1,16 +1,10 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "restrictions:block/pusher"
-  },
   "variants": {
-    "facing": {
-      "north": {},
-      "south": {"y": 180},
-      "west": {"y": 270},
-      "east": {"y": 90},
-      "up": {"x": -90},
-      "down": {"x": 90}
-    }
+    "facing=down": { "model": "restrictions:block/pusher", "x": 180 },
+    "facing=up": { "model": "restrictions:block/pusher" },
+    "facing=north": { "model": "restrictions:block/pusher", "x": 90 },
+    "facing=south": { "model": "restrictions:block/pusher", "x": 90, "y": 180 },
+    "facing=west": { "model": "restrictions:block/pusher", "x": 90, "y": 270 },
+    "facing=east": { "model": "restrictions:block/pusher", "x": 90, "y": 90 }
   }
 }

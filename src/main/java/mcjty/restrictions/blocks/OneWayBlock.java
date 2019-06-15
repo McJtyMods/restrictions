@@ -2,6 +2,8 @@ package mcjty.restrictions.blocks;
 
 import mcjty.restrictions.items.GlassBoots;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,9 +14,6 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
@@ -29,7 +28,10 @@ public class OneWayBlock extends GenericBlockNoTE {
     public static final String REGNAME = "oneway";
 
     public OneWayBlock() {
-        super(REGNAME);
+        super(REGNAME, Properties.create(Material.GLASS)
+                .hardnessAndResistance(2.0f)
+                .doesNotBlockMovement()
+                .sound(SoundType.GLASS));
     }
 
     @Override
@@ -85,13 +87,6 @@ public class OneWayBlock extends GenericBlockNoTE {
     @Override
     public int getOpacity(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
         return 0;   // Let light pass through
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    @Nonnull
-    public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
-        return VoxelShapes.empty();
     }
 
     @SuppressWarnings("deprecation")

@@ -2,7 +2,6 @@ package mcjty.restrictions.blocks;
 
 import mcjty.restrictions.items.GlassBoots;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -11,6 +10,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class GenericTileEntity extends TileEntity implements ITickable {
+public class GenericTileEntity extends TileEntity implements ITickableTileEntity {
 
     private AxisAlignedBB aabb = null;
     private int power = 0;
@@ -46,8 +46,8 @@ public class GenericTileEntity extends TileEntity implements ITickable {
 
     @Override
     public void onLoad() {
-        assert world != null;
-        setPower(world.getRedstonePowerFromNeighbors(pos));
+//        assert world != null;
+//        setPower(world.getRedstonePowerFromNeighbors(pos));
     }
 
     protected AxisAlignedBB getBox() {

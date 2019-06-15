@@ -28,6 +28,11 @@ public abstract class GenericBlock extends Block {
         setDefaultState(this.stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.NORTH));
     }
 
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+
     @Nullable
     @Override
     public ToolType getHarvestTool(BlockState state) {

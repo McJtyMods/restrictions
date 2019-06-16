@@ -1,10 +1,10 @@
 {
   "variants": {
-    "facing=down": { "model": "restrictions:block/oneway", "x": 180 },
-    "facing=up": { "model": "restrictions:block/oneway" },
-    "facing=north": { "model": "restrictions:block/oneway", "x": 90 },
-    "facing=south": { "model": "restrictions:block/oneway", "x": 90, "y": 180 },
-    "facing=west": { "model": "restrictions:block/oneway", "x": 90, "y": 270 },
-    "facing=east": { "model": "restrictions:block/oneway", "x": 90, "y": 90 }
+    "facing=north": { "model": "restrictions:block/oneway" },
+    "facing=south": { "model": "restrictions:block/oneway", "y": 180 },
+    "facing=west": { "model": "restrictions:block/oneway", "y": 270 },
+    "facing=east": { "model": "restrictions:block/oneway", "y": 90 },
+    "facing=up": { "model": "restrictions:block/oneway", "x": -90 },
+    "facing=down": { "model": "restrictions:block/oneway", "x": 90 }
   }
 }

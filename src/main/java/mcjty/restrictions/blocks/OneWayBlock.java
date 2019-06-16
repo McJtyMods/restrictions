@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -49,7 +50,7 @@ public class OneWayBlock extends GenericBlockNoTE {
 //        return NULL_AABB;
 //    }
 
-    public static final double SPEED = .2;
+    private static final double SPEED = .2;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -83,6 +84,14 @@ public class OneWayBlock extends GenericBlockNoTE {
         return true;
     }
 
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean isNormalCube(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
+        return false;
+    }
+
+
     @SuppressWarnings("deprecation")
     @Override
     public int getOpacity(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
@@ -94,5 +103,10 @@ public class OneWayBlock extends GenericBlockNoTE {
     @Nonnull
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
+    }
+
+    @Override
+    public boolean doesSideBlockRendering(BlockState state, IEnviromentBlockReader world, BlockPos pos, Direction face) {
+        return false;
     }
 }

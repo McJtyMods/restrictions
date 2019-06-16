@@ -11,11 +11,6 @@ public class ModSetup extends DefaultModSetup {
     }
 
     @Override
-    public void createTabs() {
-        // @todo get rid of this
-    }
-
-    @Override
     protected void setupModCompat() { }
 
     @Override

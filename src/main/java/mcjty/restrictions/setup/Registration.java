@@ -35,8 +35,8 @@ public class Registration {
     @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void registerTiles(final RegistryEvent.Register<TileEntityType<?>> registry) {
-        registry.getRegistry().register(ModBlocks.TYPE_ATTRACTOR = TileEntityType.Builder.create(AttractorTileEntity::new, ModBlocks.ATTRACTOR_BLOCK).build(null).setRegistryName(new ResourceLocation(Restrictions.MODID, "attractor")));
-        registry.getRegistry().register(ModBlocks.TYPE_PUSHER = TileEntityType.Builder.create(PusherTileEntity::new, ModBlocks.PUSHER_BLOCK).build(null).setRegistryName(new ResourceLocation(Restrictions.MODID, "pusher")));
+        registry.getRegistry().register(TileEntityType.Builder.create(AttractorTileEntity::new, ModBlocks.ATTRACTOR_BLOCK).build(null).setRegistryName(new ResourceLocation(Restrictions.MODID, "attractor")));
+        registry.getRegistry().register(TileEntityType.Builder.create(PusherTileEntity::new, ModBlocks.PUSHER_BLOCK).build(null).setRegistryName(new ResourceLocation(Restrictions.MODID, "pusher")));
     }
 
 }

@@ -16,6 +16,9 @@ public class ModBlocks {
     @ObjectHolder("restrictions:oneway")
     public static OneWayBlock ONEWAY_BLOCK;
 
+    @ObjectHolder("restrictions:attractor")
     public static TileEntityType<?> TYPE_ATTRACTOR;
+
+    @ObjectHolder("restrictions:pusher")
     public static TileEntityType<?> TYPE_PUSHER;
 }

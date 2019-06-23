@@ -167,11 +167,11 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
         }
 
         GlassBootsModel armor = new GlassBootsModel();
-        armor.field_78115_e.isHidden = true;    // @todo 1.14 bipedBody
+        armor.bipedBody.isHidden = true;
         armor.bipedLeftArm.isHidden = true;
         armor.bipedRightArm.isHidden = true;
 
-        armor.field_78116_c.isHidden = true;    // @todo 1.14 bipedHead
+        armor.bipedHead.isHidden = true;
 
         armor.bipedLeftLeg.isHidden = true;
         armor.bipedRightLeg.isHidden = true;
@@ -201,13 +201,13 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
             GlStateManager.translatef(0.0F, 16.0F * scale, 0.0F);
             GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GlStateManager.enableBlend();
-            this.field_78116_c.render(scale);
+            this.bipedHead.render(scale);
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.scalef(1.0F / f6, 1.0F / f6, 1.0F / f6);
             GlStateManager.translatef(0.0F, 24.0F * scale, 0.0F);
-            this.field_78115_e.render(scale);
+            this.bipedBody.render(scale);
             this.bipedRightArm.render(scale);
             this.bipedLeftArm.render(scale);
             this.bipedRightLeg.render(scale);
@@ -216,9 +216,9 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
         } else {
             GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GlStateManager.enableBlend();
-            this.field_78116_c.render(scale);
+            this.bipedHead.render(scale);
             GlStateManager.disableBlend();
-            this.field_78115_e.render(scale);
+            this.bipedBody.render(scale);
             this.bipedRightArm.render(scale);
             this.bipedLeftArm.render(scale);
             this.bipedRightLeg.render(scale);

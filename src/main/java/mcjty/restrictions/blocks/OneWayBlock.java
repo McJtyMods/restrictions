@@ -46,7 +46,7 @@ public class OneWayBlock extends GenericBlockNoTE {
 //
 //    @Nullable
 //    @Override
-//    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+//    public AxisAlignedBB getCollisionBoundingBox(BlockState state, IBlockAccess worldIn, BlockPos pos) {
 //        return NULL_AABB;
 //    }
 

@@ -1,19 +1,20 @@
 {
-  "result": {
-    "item": "restrictions:glassboots"
-  },
+  "type": "minecraft:crafting_shaped",
+  "group": "restrictions",
   "pattern": [
     "   ",
-    "p p",
-    "g g"
+    "g g",
+    "G G"
   ],
-  "type": "minecraft:crafting_shaped",
   "key": {
-    "p": {
-      "item": "minecraft:glass_pane"
-    },
     "g": {
-      "item": "minecraft:glass"
+      "tag": "forge:glass_panes"
+    },
+    "G": {
+      "tag": "forge:glass"
     }
+  },
+  "result": {
+    "item": "restrictions:glassboots"
   }
 }

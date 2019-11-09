@@ -1,3 +1,6 @@
+1.3.8:
+- Updates to the latest McJtyLib
+
 1.3.7:
 - Better recipe for glass boots (uses tags for glass)
 - Proper loot tables for the blocks

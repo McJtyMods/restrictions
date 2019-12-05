@@ -18,13 +18,12 @@ import javax.annotation.Nullable;
 
 public abstract class GenericBlock extends Block {
 
-    public GenericBlock(String name) {
-        this(name, Material.IRON);
+    public GenericBlock() {
+        this(Material.IRON);
     }
 
-    public GenericBlock(String name, Material material) {
+    public GenericBlock(Material material) {
         super(Properties.create(material).hardnessAndResistance(2.0f).sound(SoundType.METAL));
-        setRegistryName(name);
         setDefaultState(this.stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.NORTH));
     }
 

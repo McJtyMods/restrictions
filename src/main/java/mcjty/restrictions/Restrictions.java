@@ -2,7 +2,9 @@ package mcjty.restrictions;
 
 import mcjty.lib.base.ModBase;
 import mcjty.restrictions.setup.ModSetup;
+import mcjty.restrictions.setup.Registration;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -18,6 +20,7 @@ public class Restrictions implements ModBase {
     public static ModSetup setup = new ModSetup();
 
     public Restrictions() {
+        Registration.register();
         FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLCommonSetupEvent event) -> setup.init(event));
     }
 
@@ -30,5 +33,10 @@ public class Restrictions implements ModBase {
     @Override
     public void openManual(PlayerEntity entityPlayer, int i, String s) {
         // @todo
+    }
+
+
+    public static Item.Properties createStandardProperties() {
+        return new Item.Properties().group(setup.getTab());
     }
 }

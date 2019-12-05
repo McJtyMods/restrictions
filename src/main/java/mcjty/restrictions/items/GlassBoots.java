@@ -18,11 +18,8 @@ import java.util.List;
 
 public class GlassBoots extends ArmorItem {
 
-    public static final String REGNAME = "glassboots";
-
     public GlassBoots() {
         super(ArmorMaterial.LEATHER, EquipmentSlotType.FEET, new Properties().group(Restrictions.setup.getTab()));
-        setRegistryName(REGNAME);
     }
 
     @Override

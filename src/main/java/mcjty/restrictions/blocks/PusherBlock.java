@@ -13,10 +13,7 @@ import java.util.List;
 
 public class PusherBlock extends GenericBlock {
 
-    public static final String REGNAME = "pusher";
-
     public PusherBlock() {
-        super(REGNAME);
     }
 
     @Nullable

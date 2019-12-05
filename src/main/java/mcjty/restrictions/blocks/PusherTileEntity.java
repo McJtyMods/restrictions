@@ -1,9 +1,11 @@
 package mcjty.restrictions.blocks;
 
+import mcjty.restrictions.setup.Registration;
+
 public class PusherTileEntity extends GenericTileEntity {
 
     public PusherTileEntity() {
-        super(ModBlocks.TYPE_PUSHER, .1);
+        super(Registration.TYPE_PUSHER.get(), .1);
     }
 
 }

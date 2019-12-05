@@ -2,41 +2,45 @@ package mcjty.restrictions.setup;
 
 
 import mcjty.restrictions.Restrictions;
-import mcjty.restrictions.blocks.*;
+import mcjty.restrictions.blocks.AttractorTileEntity;
+import mcjty.restrictions.blocks.PusherBlock;
+import mcjty.restrictions.blocks.PusherTileEntity;
 import mcjty.restrictions.items.GlassBoots;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = Restrictions.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+import static mcjty.restrictions.Restrictions.MODID;
+
+@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Registration {
 
-    @SubscribeEvent
-    public static void registerBlocks(final RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(new PusherBlock());
-        event.getRegistry().register(new AttractorBlock());
-        event.getRegistry().register(new OneWayBlock());
+    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
+    public static final DeferredRegister<TileEntityType<?>> TILES = new DeferredRegister<>(ForgeRegistries.TILE_ENTITIES, MODID);
+
+    public static void register() {
+        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
-    @SubscribeEvent
-    public static void registerItems(final RegistryEvent.Register<Item> event) {
-        event.getRegistry().register(new GlassBoots());
-        Item.Properties properties = new Item.Properties().group(Restrictions.setup.getTab());
-        event.getRegistry().register(new BlockItem(ModBlocks.PUSHER_BLOCK, properties).setRegistryName(PusherBlock.REGNAME));
-        event.getRegistry().register(new BlockItem(ModBlocks.ATTRACTOR_BLOCK, properties).setRegistryName(AttractorBlock.REGNAME));
-        event.getRegistry().register(new BlockItem(ModBlocks.ONEWAY_BLOCK, properties).setRegistryName(OneWayBlock.REGNAME));
-    }
+    public static final RegistryObject<Block> PUSHER = BLOCKS.register("pusher", PusherBlock::new);
+    public static final RegistryObject<Item> PUSHER_ITEM = ITEMS.register("pusher", () -> new BlockItem(PUSHER.get(), Restrictions.createStandardProperties()));
+    public static final RegistryObject<TileEntityType<?>> TYPE_PUSHER = TILES.register("pusher", () -> TileEntityType.Builder.create(PusherTileEntity::new, PUSHER.get()).build(null));
 
-    @SuppressWarnings("ConstantConditions")
-    @SubscribeEvent
-    public static void registerTiles(final RegistryEvent.Register<TileEntityType<?>> registry) {
-        registry.getRegistry().register(TileEntityType.Builder.create(AttractorTileEntity::new, ModBlocks.ATTRACTOR_BLOCK).build(null).setRegistryName(new ResourceLocation(Restrictions.MODID, "attractor")));
-        registry.getRegistry().register(TileEntityType.Builder.create(PusherTileEntity::new, ModBlocks.PUSHER_BLOCK).build(null).setRegistryName(new ResourceLocation(Restrictions.MODID, "pusher")));
-    }
+    public static final RegistryObject<Block> ATTRACTOR = BLOCKS.register("attractor", PusherBlock::new);
+    public static final RegistryObject<Item> ATTRACTOR_ITEM = ITEMS.register("attractor", () -> new BlockItem(ATTRACTOR.get(), Restrictions.createStandardProperties()));
+    public static final RegistryObject<TileEntityType<?>> TYPE_ATTRACTOR = TILES.register("attractor", () -> TileEntityType.Builder.create(AttractorTileEntity::new, ATTRACTOR.get()).build(null));
 
+    public static final RegistryObject<Block> ONEWAY = BLOCKS.register("oneway", PusherBlock::new);
+    public static final RegistryObject<Item> ONEWAY_ITEM = ITEMS.register("oneway", () -> new BlockItem(ONEWAY.get(), Restrictions.createStandardProperties()));
+
+    public static final RegistryObject<GlassBoots> GLASSBOOTS = ITEMS.register("glassboots", GlassBoots::new);
 }

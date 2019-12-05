@@ -1,8 +1,7 @@
 package mcjty.restrictions.datagen;
 
 import mcjty.lib.datagen.BaseRecipeProvider;
-import mcjty.restrictions.blocks.ModBlocks;
-import mcjty.restrictions.items.ModItems;
+import mcjty.restrictions.setup.Registration;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
@@ -22,22 +21,22 @@ public class Recipes extends BaseRecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(ModBlocks.ATTRACTOR_BLOCK)
+        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.ATTRACTOR.get())
                         .key('f', Items.FEATHER)
                         .key('P', Blocks.STICKY_PISTON)
                         .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
                 "frf", "rPr", "frf");
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(ModBlocks.PUSHER_BLOCK)
+        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.PUSHER.get())
                         .key('f', Items.FEATHER)
                         .key('P', Blocks.PISTON)
                         .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
                 "frf", "rPr", "frf");
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(ModBlocks.ONEWAY_BLOCK)
+        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.ONEWAY.get())
                         .key('f', Tags.Items.SLIMEBALLS)
                         .key('P', Items.RAIL)
                         .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
                 "frf", "rPr", "frf");
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(ModItems.GLASSBOOTS)
+        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.GLASSBOOTS.get())
                         .key('g', Tags.Items.GLASS_PANES)
                         .addCriterion("glass", InventoryChangeTrigger.Instance.forItems(Items.GLASS)),
                 "   ", "g g", "G G");

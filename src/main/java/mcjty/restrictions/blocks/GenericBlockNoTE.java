@@ -15,9 +15,8 @@ import javax.annotation.Nullable;
 
 public class GenericBlockNoTE extends Block {
 
-    public GenericBlockNoTE(String name, Block.Properties properties) {
+    public GenericBlockNoTE(Block.Properties properties) {
         super(properties);
-        setRegistryName(name);
         setDefaultState(this.stateContainer.getBaseState().with(BlockStateProperties.FACING, Direction.NORTH));
     }
 

@@ -26,10 +26,8 @@ import java.util.List;
 
 public class OneWayBlock extends GenericBlockNoTE {
 
-    public static final String REGNAME = "oneway";
-
     public OneWayBlock() {
-        super(REGNAME, Properties.create(Material.GLASS)
+        super(Properties.create(Material.GLASS)
                 .hardnessAndResistance(2.0f)
                 .doesNotBlockMovement()
                 .sound(SoundType.GLASS));

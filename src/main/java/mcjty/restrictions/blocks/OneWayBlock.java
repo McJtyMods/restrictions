@@ -95,13 +95,6 @@ public class OneWayBlock extends GenericBlockNoTE {
     }
 
     // @todo 1.15
-//    @SuppressWarnings("deprecation")
-//    @Override
-//    @Nonnull
-//    public BlockRenderLayer getRenderLayer() {
-//        return BlockRenderLayer.CUTOUT;
-//    }
-//
 //    @Override
 //    public boolean doesSideBlockRendering(BlockState state, IEnviromentBlockReader world, BlockPos pos, Direction face) {
 //        return false;

@@ -199,7 +199,7 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
 
     @Override
     public void render(LivingEntity entity, float p_225597_2_, float p_225597_3_, float p_225597_4_, float p_225597_5_, float p_225597_6_) {
-        this.isSneak = entity.func_225608_bj_ /*isSneaking*/();
+        this.isSneak = entity.isShiftKeyDown /*isSneaking*/();
         this.isSitting = entity.isPassenger();
 
         super.render(entity, p_225597_2_, p_225597_3_, p_225597_4_, p_225597_5_, p_225597_6_);

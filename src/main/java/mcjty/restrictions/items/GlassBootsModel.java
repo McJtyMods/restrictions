@@ -1,7 +1,6 @@
 package mcjty.restrictions.items;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -9,9 +8,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
-
-import javax.annotation.Nonnull;
 
 public class GlassBootsModel extends BipedModel<LivingEntity> {
 
@@ -198,11 +194,11 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
     }
 
     @Override
-    public void render(LivingEntity entity, float p_225597_2_, float p_225597_3_, float p_225597_4_, float p_225597_5_, float p_225597_6_) {
+    public void setRotationAngles(LivingEntity entity, float p_225597_2_, float p_225597_3_, float p_225597_4_, float p_225597_5_, float p_225597_6_) {
         this.isSneak = entity.isShiftKeyDown /*isSneaking*/();
         this.isSitting = entity.isPassenger();
 
-        super.render(entity, p_225597_2_, p_225597_3_, p_225597_4_, p_225597_5_, p_225597_6_);
+        super.setRotationAngles(entity, p_225597_2_, p_225597_3_, p_225597_4_, p_225597_5_, p_225597_6_);
 //        this.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         if (this.isChild) {
             float f6 = 2.0F;

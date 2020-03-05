@@ -15,7 +15,7 @@ public class ClientRegistration {
 
     @SubscribeEvent
     public static void init(FMLClientSetupEvent event) {
-        RenderTypeLookup.setRenderLayer(Registration.ONEWAY.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(Registration.ONEWAY.get(), RenderType.getCutout());
     }
 
     @SubscribeEvent

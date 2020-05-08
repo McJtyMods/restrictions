@@ -40,6 +40,6 @@ A vanilla+ style mod that adds some blocks to help push/pull mobs and players
 [[dependencies.restrictions]]
     modId="mcjtylib"
     mandatory=false
-#    versionRange="[1.14-3.5.8,1.14-4.0.0)"
+    versionRange="[1.15-4.0.9,)"
     ordering="AFTER"
     side="BOTH"

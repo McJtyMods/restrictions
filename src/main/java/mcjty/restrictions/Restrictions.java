@@ -1,10 +1,10 @@
 package mcjty.restrictions;
 
+import mcjty.restrictions.setup.ClientSetup;
 import mcjty.restrictions.setup.ModSetup;
 import mcjty.restrictions.setup.Registration;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 
@@ -19,7 +19,9 @@ public class Restrictions {
 
     public Restrictions() {
         Registration.register();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLCommonSetupEvent event) -> setup.init(event));
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(setup::init);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::initModels);
     }
 
     public static Item.Properties createStandardProperties() {

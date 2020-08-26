@@ -6,7 +6,6 @@ import mcjty.restrictions.items.GlassBoots;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -15,15 +14,11 @@ import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
 
 import static mcjty.lib.builder.TooltipBuilder.header;
 import static mcjty.lib.builder.TooltipBuilder.key;
@@ -35,6 +30,8 @@ public class OneWayBlock extends BaseBlock {
                 .properties(Properties.create(Material.GLASS)
                         .harvestTool(ToolType.PICKAXE)
                         .harvestLevel(0)
+                        .setOpaque((state, reader, pos) -> false)
+                        .setSuffocates((state, reader, pos) -> false)
                         .hardnessAndResistance(2.0f)
                         .doesNotBlockMovement()
                         .sound(SoundType.GLASS))
@@ -67,22 +64,10 @@ public class OneWayBlock extends BaseBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public boolean causesSuffocation(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos) {
-        return false;
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
     public boolean allowsMovement(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, PathType type) {
         return true;
     }
 
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean isNormalCube(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
-        return false;
-    }
 
 
     @SuppressWarnings("deprecation")

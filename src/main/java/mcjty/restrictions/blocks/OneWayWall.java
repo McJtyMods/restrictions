@@ -32,6 +32,8 @@ public class OneWayWall extends BaseBlock {
                 .properties(Properties.create(Material.GLASS)
                         .harvestTool(ToolType.PICKAXE)
                         .harvestLevel(0)
+                        .setSuffocates((state, reader, pos) -> false)
+                        .setOpaque((state, reader, pos) -> false)
                         .hardnessAndResistance(2.0f)
                         .notSolid()
                         .sound(SoundType.GLASS))
@@ -84,23 +86,17 @@ public class OneWayWall extends BaseBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public boolean causesSuffocation(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos) {
-        return false;
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
     public boolean allowsMovement(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, PathType type) {
 //        return true;
         return super.allowsMovement(state, reader, pos, type);
     }
 
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean isNormalCube(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
-        return false;
-    }
+//    @SuppressWarnings("deprecation")
+//    @Override
+//    public boolean isNormalCube(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
+//        return false;
+//    }
 
 
     @SuppressWarnings("deprecation")

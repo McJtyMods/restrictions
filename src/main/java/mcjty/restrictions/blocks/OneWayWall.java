@@ -40,8 +40,6 @@ public class OneWayWall extends BaseBlock {
         );
     }
 
-    private static final double SPEED = .2;
-
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
         Direction direction = state.get(BlockStateProperties.FACING);
@@ -108,12 +106,6 @@ public class OneWayWall extends BaseBlock {
     @SuppressWarnings("deprecation")
     @Override
     public int getOpacity(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
-        return 0;   // Let light pass through
+        return 15;   // Block light
     }
-
-    // @todo 1.15
-//    @Override
-//    public boolean doesSideBlockRendering(BlockState state, IEnviromentBlockReader world, BlockPos pos, Direction face) {
-//        return false;
-//    }
 }

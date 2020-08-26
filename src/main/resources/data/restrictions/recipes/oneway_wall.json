@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "restrictions",
+  "pattern": [
+    "frf",
+    "rPr",
+    "frf"
+  ],
+  "key": {
+    "f": {
+      "tag": "forge:slimeballs"
+    },
+    "P": {
+      "tag": "forge:glass"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "restrictions:oneway_wall"
+  }
+}

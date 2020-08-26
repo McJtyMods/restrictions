@@ -36,6 +36,11 @@ public class Recipes extends BaseRecipeProvider {
                         .key('P', Items.RAIL)
                         .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
                 "frf", "rPr", "frf");
+        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.ONEWAY_WALL.get())
+                        .key('f', Tags.Items.SLIMEBALLS)
+                        .key('P', Tags.Items.GLASS)
+                        .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
+                "frf", "rPr", "frf");
         build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.GLASSBOOTS.get())
                         .key('g', Tags.Items.GLASS_PANES)
                         .addCriterion("glass", InventoryChangeTrigger.Instance.forItems(Items.GLASS)),

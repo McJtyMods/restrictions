@@ -3,8 +3,8 @@
   "textures": {
     "down": "restrictions:block/sideone",
     "up": "restrictions:block/sideone",
-    "north": "restrictions:block/onewayn",
-    "south": "restrictions:block/oneways",
+    "north": "restrictions:block/sideone",
+    "south": "restrictions:block/side",
     "east": "restrictions:block/sideone",
     "west": "restrictions:block/sideone"
   }

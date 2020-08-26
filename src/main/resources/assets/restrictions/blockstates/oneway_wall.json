@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "restrictions:block/oneway_wall",
+      "x": 90
+    },
+    "facing=up": {
+      "model": "restrictions:block/oneway_wall",
+      "x": -90
+    },
+    "facing=north": {
+      "model": "restrictions:block/oneway_wall"
+    },
+    "facing=south": {
+      "model": "restrictions:block/oneway_wall",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "restrictions:block/oneway_wall",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "restrictions:block/oneway_wall",
+      "y": 90
+    }
+  }
+}

@@ -1,11 +1,12 @@
 {
-  "parent": "block/cube",
+  "parent": "minecraft:block/cube",
   "textures": {
     "down": "restrictions:block/side",
     "up": "restrictions:block/side",
     "north": "restrictions:block/attractor",
     "south": "restrictions:block/side",
     "east": "restrictions:block/side",
-    "west": "restrictions:block/side"
+    "west": "restrictions:block/side",
+    "particle": "restrictions:block/side"
   }
 }

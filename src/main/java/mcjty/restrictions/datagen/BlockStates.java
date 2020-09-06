@@ -4,8 +4,7 @@ import mcjty.lib.datagen.BaseBlockStateProvider;
 import mcjty.restrictions.Restrictions;
 import mcjty.restrictions.setup.Registration;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class BlockStates extends BaseBlockStateProvider {
 

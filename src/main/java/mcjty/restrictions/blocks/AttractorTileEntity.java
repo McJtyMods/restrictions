@@ -11,6 +11,8 @@ import net.minecraftforge.common.ToolType;
 import static mcjty.lib.builder.TooltipBuilder.header;
 import static mcjty.lib.builder.TooltipBuilder.key;
 
+import BaseBlock;
+
 public class AttractorTileEntity extends BaseTileEntity {
 
     public AttractorTileEntity() {

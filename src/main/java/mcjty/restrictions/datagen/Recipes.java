@@ -20,30 +20,30 @@ public class Recipes extends BaseRecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.ATTRACTOR.get())
-                        .key('f', Items.FEATHER)
-                        .key('P', Blocks.STICKY_PISTON)
-                        .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
+    protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+        build(consumer, ShapedRecipeBuilder.shaped(Registration.ATTRACTOR.get())
+                        .define('f', Items.FEATHER)
+                        .define('P', Blocks.STICKY_PISTON)
+                        .unlockedBy("redstone", InventoryChangeTrigger.Instance.hasItems(Items.REDSTONE)),
                 "frf", "rPr", "frf");
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.PUSHER.get())
-                        .key('f', Items.FEATHER)
-                        .key('P', Blocks.PISTON)
-                        .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
+        build(consumer, ShapedRecipeBuilder.shaped(Registration.PUSHER.get())
+                        .define('f', Items.FEATHER)
+                        .define('P', Blocks.PISTON)
+                        .unlockedBy("redstone", InventoryChangeTrigger.Instance.hasItems(Items.REDSTONE)),
                 "frf", "rPr", "frf");
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.ONEWAY.get())
-                        .key('f', Tags.Items.SLIMEBALLS)
-                        .key('P', Items.RAIL)
-                        .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
+        build(consumer, ShapedRecipeBuilder.shaped(Registration.ONEWAY.get())
+                        .define('f', Tags.Items.SLIMEBALLS)
+                        .define('P', Items.RAIL)
+                        .unlockedBy("redstone", InventoryChangeTrigger.Instance.hasItems(Items.REDSTONE)),
                 "frf", "rPr", "frf");
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.ONEWAY_WALL.get())
-                        .key('f', Tags.Items.SLIMEBALLS)
-                        .key('P', Tags.Items.GLASS)
-                        .addCriterion("redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE)),
+        build(consumer, ShapedRecipeBuilder.shaped(Registration.ONEWAY_WALL.get())
+                        .define('f', Tags.Items.SLIMEBALLS)
+                        .define('P', Tags.Items.GLASS)
+                        .unlockedBy("redstone", InventoryChangeTrigger.Instance.hasItems(Items.REDSTONE)),
                 "frf", "rPr", "frf");
-        build(consumer, ShapedRecipeBuilder.shapedRecipe(Registration.GLASSBOOTS.get())
-                        .key('g', Tags.Items.GLASS_PANES)
-                        .addCriterion("glass", InventoryChangeTrigger.Instance.forItems(Items.GLASS)),
+        build(consumer, ShapedRecipeBuilder.shaped(Registration.GLASSBOOTS.get())
+                        .define('g', Tags.Items.GLASS_PANES)
+                        .unlockedBy("glass", InventoryChangeTrigger.Instance.hasItems(Items.GLASS)),
                 "   ", "g g", "G G");
     }
 }

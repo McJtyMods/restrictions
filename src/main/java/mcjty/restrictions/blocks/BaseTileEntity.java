@@ -32,19 +32,19 @@ public class BaseTileEntity extends GenericTileEntity implements ITickableTileEn
     public void setPowerInput(int powered) {
         if (powerLevel != powered) {
             powerLevel = powered;
-            markDirty();
-            BlockState state = world.getBlockState(getPos());
-            world.notifyBlockUpdate(getPos(), state, state, Constants.BlockFlags.BLOCK_UPDATE);
+            setChanged();
+            BlockState state = level.getBlockState(getBlockPos());
+            level.sendBlockUpdated(getBlockPos(), state, state, Constants.BlockFlags.BLOCK_UPDATE);
         }
     }
 
     protected AxisAlignedBB getBox() {
         if (aabb == null) {
-            assert world != null;
-            Direction direction = world.getBlockState(getPos()).get(BlockStateProperties.FACING);
-            aabb = new AxisAlignedBB(getPos().offset(direction));
+            assert level != null;
+            Direction direction = level.getBlockState(getBlockPos()).getValue(BlockStateProperties.FACING);
+            aabb = new AxisAlignedBB(getBlockPos().relative(direction));
             if (powerLevel > 1) {
-                aabb = aabb.union(new AxisAlignedBB(getPos().offset(direction, powerLevel)));
+                aabb = aabb.minmax(new AxisAlignedBB(getBlockPos().relative(direction, powerLevel)));
             }
 
         }
@@ -54,7 +54,7 @@ public class BaseTileEntity extends GenericTileEntity implements ITickableTileEn
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
         int oldpower = powerLevel;
-        this.read(packet.getNbtCompound());
+        this.read(packet.getTag());
         if (oldpower != powerLevel) {
             aabb = null;
         }
@@ -63,26 +63,26 @@ public class BaseTileEntity extends GenericTileEntity implements ITickableTileEn
 
     @Override
     public void tick() {
-        assert world != null;
-        Direction direction = world.getBlockState(getPos()).get(BlockStateProperties.FACING);
-        if (!world.isRemote) {
+        assert level != null;
+        Direction direction = level.getBlockState(getBlockPos()).getValue(BlockStateProperties.FACING);
+        if (!level.isClientSide) {
             if (powerLevel > 0) {
-                List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, getBox());
+                List<Entity> entities = level.getEntitiesOfClass(Entity.class, getBox());
                 for (Entity entity : entities) {
-                    entity.addVelocity(direction.getXOffset() * speed, direction.getYOffset() * speed, direction.getZOffset() * speed);
-                    if (direction == Direction.UP && entity.getMotion().y > -0.5D) {
+                    entity.push(direction.getStepX() * speed, direction.getStepY() * speed, direction.getStepZ() * speed);
+                    if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
                         entity.fallDistance = 1.0F;
                     }
                 }
             }
         } else {
             if (powerLevel > 0) {
-                List<Entity> entities = world.getEntitiesWithinAABB(PlayerEntity.class, getBox());
+                List<Entity> entities = level.getEntitiesOfClass(PlayerEntity.class, getBox());
                 for (Entity entity : entities) {
-                    ItemStack boots = ((PlayerEntity) entity).getItemStackFromSlot(EquipmentSlotType.FEET);
+                    ItemStack boots = ((PlayerEntity) entity).getItemBySlot(EquipmentSlotType.FEET);
                     if (boots.isEmpty() || !(boots.getItem() instanceof GlassBoots)) {
-                        entity.addVelocity(direction.getXOffset() * speed, direction.getYOffset() * speed, direction.getZOffset() * speed);
-                        if (direction == Direction.UP && entity.getMotion().y > -0.5D) {
+                        entity.push(direction.getStepX() * speed, direction.getStepY() * speed, direction.getStepZ() * speed);
+                        if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
                             entity.fallDistance = 1.0F;
                         }
                     }

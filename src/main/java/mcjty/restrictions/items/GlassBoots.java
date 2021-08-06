@@ -19,6 +19,8 @@ import java.util.List;
 
 import static mcjty.lib.builder.TooltipBuilder.*;
 
+import net.minecraft.item.Item.Properties;
+
 public class GlassBoots extends ArmorItem implements ITooltipSettings {
 
     private final TooltipBuilder tooltipBuilder = new TooltipBuilder()
@@ -26,12 +28,12 @@ public class GlassBoots extends ArmorItem implements ITooltipSettings {
             .infoShift(header(), gold());
 
     public GlassBoots() {
-        super(ArmorMaterial.LEATHER, EquipmentSlotType.FEET, new Properties().group(Restrictions.setup.getTab()));
+        super(ArmorMaterial.LEATHER, EquipmentSlotType.FEET, new Properties().tab(Restrictions.setup.getTab()));
     }
 
     @Override
-    public void addInformation(ItemStack itemStack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-        super.addInformation(itemStack, world, list, flags);
+    public void appendHoverText(ItemStack itemStack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+        super.appendHoverText(itemStack, world, list, flags);
         tooltipBuilder.makeTooltip(getRegistryName(), itemStack, list, flags);
     }
 

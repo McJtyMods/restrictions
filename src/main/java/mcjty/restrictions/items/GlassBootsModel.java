@@ -33,8 +33,8 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
 
     public GlassBootsModel() {
         super(0.0f);    // @todo 1.15 check constructor!
-        textureWidth = 64;
-        textureHeight = 32;
+        texWidth = 64;
+        texHeight = 32;
 
         setupBoots();
 
@@ -55,8 +55,8 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
         bootsRight.addChild(bootsrightside2);
         bootsRight.addChild(bootsrighttip);
 
-        bipedLeftLeg.addChild(bootsLeft);
-        bipedRightLeg.addChild(bootsRight);
+        leftLeg.addChild(bootsLeft);
+        rightLeg.addChild(bootsRight);
     }
 
     private void setupBoots() {
@@ -64,93 +64,93 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
 
         bootsleftfootbase = new ModelRenderer(this, 12, 0);
         bootsleftfootbase.addBox(0F, offY, 0F, 4, 0, 4);
-        bootsleftfootbase.setRotationPoint(0F, 24F, -2F);
-        bootsleftfootbase.setTextureSize(64, 32);
+        bootsleftfootbase.setPos(0F, 24F, -2F);
+        bootsleftfootbase.setTexSize(64, 32);
         bootsleftfootbase.mirror = true;
         setRotation(bootsleftfootbase, 0F, 0F, 0F);
 
         bootsrightfootbase = new ModelRenderer(this, 12, 0);
         bootsrightfootbase.addBox(0F, offY, 0F, 4, 0, 4);
-        bootsrightfootbase.setRotationPoint(-4F, 24F, -2F);
-        bootsrightfootbase.setTextureSize(64, 32);
+        bootsrightfootbase.setPos(-4F, 24F, -2F);
+        bootsrightfootbase.setTexSize(64, 32);
         bootsrightfootbase.mirror = true;
         setRotation(bootsrightfootbase, 0F, 0F, 0F);
 
         bootsleftback = new ModelRenderer(this, 0, 8);
         bootsleftback.addBox(0F, offY, 0F, 4, 4, 2);
-        bootsleftback.setRotationPoint(0F, 20F, 2F);
-        bootsleftback.setTextureSize(64, 32);
+        bootsleftback.setPos(0F, 20F, 2F);
+        bootsleftback.setTexSize(64, 32);
         bootsleftback.mirror = true;
         setRotation(bootsleftback, 0F, 0F, 0F);
 
         bootsrightback = new ModelRenderer(this, 0, 8);
         bootsrightback.addBox(0F, offY, 0F, 4, 4, 2);
-        bootsrightback.setRotationPoint(-4F, 20F, 2F);
-        bootsrightback.setTextureSize(64, 32);
+        bootsrightback.setPos(-4F, 20F, 2F);
+        bootsrightback.setTexSize(64, 32);
         bootsrightback.mirror = true;
         setRotation(bootsrightback, 0F, 0F, 0F);
 
         bootsleftfront = new ModelRenderer(this, 0, 8);
         bootsleftfront.addBox(0F, offY, 0F, 4, 4, 2);
-        bootsleftfront.setRotationPoint(0F, 20F, -4F);
-        bootsleftfront.setTextureSize(64, 32);
+        bootsleftfront.setPos(0F, 20F, -4F);
+        bootsleftfront.setTexSize(64, 32);
         bootsleftfront.mirror = true;
         setRotation(bootsleftfront, 0F, 0F, 0F);
 
         bootsrightfront = new ModelRenderer(this, 0, 8);
         bootsrightfront.addBox(0F, offY, 0F, 4, 4, 2);
-        bootsrightfront.setRotationPoint(-4F, 20F, -4F);
-        bootsrightfront.setTextureSize(64, 32);
+        bootsrightfront.setPos(-4F, 20F, -4F);
+        bootsrightfront.setTexSize(64, 32);
         bootsrightfront.mirror = true;
         setRotation(bootsrightfront, 0F, 0F, 0F);
 
         bootsrightside2 = new ModelRenderer(this, 0, 0);
         bootsrightside2.addBox(0F, offY, 0F, 2, 4, 4);
-        bootsrightside2.setRotationPoint(-2F, 20F, -2F);
-        bootsrightside2.setTextureSize(64, 32);
+        bootsrightside2.setPos(-2F, 20F, -2F);
+        bootsrightside2.setTexSize(64, 32);
         bootsrightside2.mirror = true;
         setRotation(bootsrightside2, 0F, 0F, 0F);
 
         bootsleftside2 = new ModelRenderer(this, 0, 0);
         bootsleftside2.addBox(0F, offY, 0F, 2, 4, 4);
-        bootsleftside2.setRotationPoint(0F, 20F, -2F);
-        bootsleftside2.setTextureSize(64, 32);
+        bootsleftside2.setPos(0F, 20F, -2F);
+        bootsleftside2.setTexSize(64, 32);
         bootsleftside2.mirror = true;
         setRotation(bootsleftside2, 0F, 0F, 0F);
 
         bootsleftside1 = new ModelRenderer(this, 0, 0);
         bootsleftside1.addBox(0F, offY, 0F, 2, 4, 4);
-        bootsleftside1.setRotationPoint(4F, 20F, -2F);
-        bootsleftside1.setTextureSize(64, 32);
+        bootsleftside1.setPos(4F, 20F, -2F);
+        bootsleftside1.setTexSize(64, 32);
         bootsleftside1.mirror = true;
         setRotation(bootsleftside1, 0F, 0F, 0F);
 
         bootsrightside1 = new ModelRenderer(this, 0, 0);
         bootsrightside1.addBox(0F, offY, 0F, 2, 4, 4);
-        bootsrightside1.setRotationPoint(-6F, 20F, -2F);
-        bootsrightside1.setTextureSize(64, 32);
+        bootsrightside1.setPos(-6F, 20F, -2F);
+        bootsrightside1.setTexSize(64, 32);
         bootsrightside1.mirror = true;
         setRotation(bootsrightside1, 0F, 0F, 0F);
 
         bootslefttip = new ModelRenderer(this, 12, 4);
         bootslefttip.addBox(0F, offY, 0F, 2, 3, 1);
-        bootslefttip.setRotationPoint(1F, 21F, -5F);
-        bootslefttip.setTextureSize(64, 32);
+        bootslefttip.setPos(1F, 21F, -5F);
+        bootslefttip.setTexSize(64, 32);
         bootslefttip.mirror = true;
         setRotation(bootslefttip, 0F, 0F, 0F);
 
         bootsrighttip = new ModelRenderer(this, 12, 4);
         bootsrighttip.addBox(0F, offY, 0F, 2, 3, 1);
-        bootsrighttip.setRotationPoint(-3F, 21F, -5F);
-        bootsrighttip.setTextureSize(64, 32);
+        bootsrighttip.setPos(-3F, 21F, -5F);
+        bootsrighttip.setTexSize(64, 32);
         bootsrighttip.mirror = true;
         setRotation(bootsrighttip, 0F, 0F, 0F);
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
+        model.xRot = x;
+        model.yRot = y;
+        model.zRot = z;
     }
 
     public static <A extends BipedModel<?>> A getModel(LivingEntity entity, ItemStack stack) {
@@ -158,7 +158,7 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
         if (stack.isEmpty() || !(stack.getItem() instanceof ArmorItem)) {
             return null;
         }
-        EquipmentSlotType slot = ((ArmorItem) stack.getItem()).getEquipmentSlot();
+        EquipmentSlotType slot = ((ArmorItem) stack.getItem()).getSlot();
 
         if (slot == EquipmentSlotType.FEET && modelBoots != null) {
             //noinspection unchecked
@@ -166,21 +166,21 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
         }
 
         GlassBootsModel armor = new GlassBootsModel();
-        armor.bipedBody.showModel = false;
-        armor.bipedLeftArm.showModel = false;
-        armor.bipedRightArm.showModel = false;
+        armor.body.visible = false;
+        armor.leftArm.visible = false;
+        armor.rightArm.visible = false;
 
-        armor.bipedHead.showModel = false;
+        armor.head.visible = false;
 
-        armor.bipedLeftLeg.showModel = false;
-        armor.bipedRightLeg.showModel = false;
+        armor.leftLeg.visible = false;
+        armor.rightLeg.visible = false;
 
-        armor.bootsRight.showModel = false;
-        armor.bootsLeft.showModel = false;
+        armor.bootsRight.visible = false;
+        armor.bootsLeft.visible = false;
 
         if (slot == EquipmentSlotType.FEET) {
-            armor.bootsLeft.showModel = true;
-            armor.bootsRight.showModel = true;
+            armor.bootsLeft.visible = true;
+            armor.bootsRight.visible = true;
             modelBoots = armor;
         }
         //noinspection unchecked
@@ -189,18 +189,18 @@ public class GlassBootsModel extends BipedModel<LivingEntity> {
 
 
     @Override
-    public void render(MatrixStack matrixStack, IVertexBuilder builder, int p_225598_3_, int p_225598_4_, float p_225598_5_, float p_225598_6_, float p_225598_7_, float p_225598_8_) {
-        super.render(matrixStack, builder, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
+    public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder builder, int p_225598_3_, int p_225598_4_, float p_225598_5_, float p_225598_6_, float p_225598_7_, float p_225598_8_) {
+        super.renderToBuffer(matrixStack, builder, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
     }
 
     @Override
-    public void setRotationAngles(LivingEntity entity, float p_225597_2_, float p_225597_3_, float p_225597_4_, float p_225597_5_, float p_225597_6_) {
-        this.isSneak = entity.isSneaking();
-        this.isSitting = entity.isPassenger();
+    public void setupAnim(LivingEntity entity, float p_225597_2_, float p_225597_3_, float p_225597_4_, float p_225597_5_, float p_225597_6_) {
+        this.crouching = entity.isShiftKeyDown();
+        this.riding = entity.isPassenger();
 
-        super.setRotationAngles(entity, p_225597_2_, p_225597_3_, p_225597_4_, p_225597_5_, p_225597_6_);
+        super.setupAnim(entity, p_225597_2_, p_225597_3_, p_225597_4_, p_225597_5_, p_225597_6_);
 //        this.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        if (this.isChild) {
+        if (this.young) {
             float f6 = 2.0F;
             // @todo 1.15
 //            GlStateManager.pushMatrix();

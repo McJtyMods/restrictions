@@ -32,11 +32,11 @@ public class Registration {
 
     public static final RegistryObject<Block> PUSHER = BLOCKS.register("pusher", PusherTileEntity::createBlock);
     public static final RegistryObject<Item> PUSHER_ITEM = ITEMS.register("pusher", () -> new BlockItem(PUSHER.get(), createStandardProperties()));
-    public static final RegistryObject<TileEntityType<?>> TYPE_PUSHER = TILES.register("pusher", () -> TileEntityType.Builder.create(PusherTileEntity::new, PUSHER.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> TYPE_PUSHER = TILES.register("pusher", () -> TileEntityType.Builder.of(PusherTileEntity::new, PUSHER.get()).build(null));
 
     public static final RegistryObject<Block> ATTRACTOR = BLOCKS.register("attractor", AttractorTileEntity::createBlock);
     public static final RegistryObject<Item> ATTRACTOR_ITEM = ITEMS.register("attractor", () -> new BlockItem(ATTRACTOR.get(), createStandardProperties()));
-    public static final RegistryObject<TileEntityType<?>> TYPE_ATTRACTOR = TILES.register("attractor", () -> TileEntityType.Builder.create(AttractorTileEntity::new, ATTRACTOR.get()).build(null));
+    public static final RegistryObject<TileEntityType<?>> TYPE_ATTRACTOR = TILES.register("attractor", () -> TileEntityType.Builder.of(AttractorTileEntity::new, ATTRACTOR.get()).build(null));
 
     public static final RegistryObject<Block> ONEWAY = BLOCKS.register("oneway", OneWayBlock::new);
     public static final RegistryObject<Item> ONEWAY_ITEM = ITEMS.register("oneway", () -> new BlockItem(ONEWAY.get(), createStandardProperties()));
@@ -47,6 +47,6 @@ public class Registration {
     public static final RegistryObject<GlassBoots> GLASSBOOTS = ITEMS.register("glassboots", GlassBoots::new);
 
     public static Item.Properties createStandardProperties() {
-        return new Item.Properties().group(Restrictions.setup.getTab());
+        return new Item.Properties().tab(Restrictions.setup.getTab());
     }
 }

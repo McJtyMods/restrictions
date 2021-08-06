@@ -23,17 +23,19 @@ import javax.annotation.Nonnull;
 import static mcjty.lib.builder.TooltipBuilder.header;
 import static mcjty.lib.builder.TooltipBuilder.key;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class OneWayBlock extends BaseBlock {
 
     public OneWayBlock() {
         super(new BlockBuilder()
-                .properties(Properties.create(Material.GLASS)
+                .properties(Properties.of(Material.GLASS)
                         .harvestTool(ToolType.PICKAXE)
                         .harvestLevel(0)
-                        .setOpaque((state, reader, pos) -> false)
-                        .setSuffocates((state, reader, pos) -> false)
-                        .hardnessAndResistance(2.0f)
-                        .doesNotBlockMovement()
+                        .isRedstoneConductor((state, reader, pos) -> false)
+                        .isSuffocating((state, reader, pos) -> false)
+                        .strength(2.0f)
+                        .noCollission()
                         .sound(SoundType.GLASS))
                 .info(key("message.restrictions.shiftmessage"))
                 .infoShift(header())
@@ -44,18 +46,18 @@ public class OneWayBlock extends BaseBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        Direction direction = world.getBlockState(pos).get(BlockStateProperties.FACING);
-        if (!world.isRemote) {
-            entity.addVelocity(direction.getXOffset() * SPEED, direction.getYOffset() * SPEED, direction.getZOffset() * SPEED);
-            if (direction == Direction.UP && entity.getMotion().y > -0.5D) {
+    public void entityInside(BlockState state, World world, BlockPos pos, Entity entity) {
+        Direction direction = world.getBlockState(pos).getValue(BlockStateProperties.FACING);
+        if (!world.isClientSide) {
+            entity.push(direction.getStepX() * SPEED, direction.getStepY() * SPEED, direction.getStepZ() * SPEED);
+            if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
                 entity.fallDistance = 1.0F;
             }
         } else if (entity instanceof PlayerEntity) {
-            ItemStack boots = ((PlayerEntity) entity).getItemStackFromSlot(EquipmentSlotType.FEET);
+            ItemStack boots = ((PlayerEntity) entity).getItemBySlot(EquipmentSlotType.FEET);
             if (boots.isEmpty() || !(boots.getItem() instanceof GlassBoots)) {
-                entity.addVelocity(direction.getXOffset() * SPEED, direction.getYOffset() * SPEED, direction.getZOffset() * SPEED);
-                if (direction == Direction.UP && entity.getMotion().y > -0.5D) {
+                entity.push(direction.getStepX() * SPEED, direction.getStepY() * SPEED, direction.getStepZ() * SPEED);
+                if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
                     entity.fallDistance = 1.0F;
                 }
             }
@@ -64,7 +66,7 @@ public class OneWayBlock extends BaseBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public boolean allowsMovement(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, PathType type) {
+    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, PathType type) {
         return true;
     }
 
@@ -72,7 +74,7 @@ public class OneWayBlock extends BaseBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public int getOpacity(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
+    public int getLightBlock(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
         return 0;   // Let light pass through
     }
 

@@ -19,10 +19,10 @@ public class AttractorTileEntity extends BaseTileEntity {
 
     public static BaseBlock createBlock() {
         return new BaseBlock(new BlockBuilder()
-                .properties(Block.Properties.create(Material.IRON)
+                .properties(Block.Properties.of(Material.METAL)
                         .harvestTool(ToolType.PICKAXE)
                         .harvestLevel(0)
-                        .hardnessAndResistance(2.0f)
+                        .strength(2.0f)
                         .sound(SoundType.METAL))
                 .tileEntitySupplier(AttractorTileEntity::new)
                 .info(key("message.restrictions.shiftmessage"))

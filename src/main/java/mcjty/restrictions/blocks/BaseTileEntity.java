@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -60,6 +61,10 @@ public class BaseTileEntity extends GenericTileEntity implements ITickableTileEn
         }
     }
 
+    @Override
+    public void writeClientDataToNBT(CompoundNBT tagCompound) {
+        save(tagCompound);
+    }
 
     @Override
     public void tick() {

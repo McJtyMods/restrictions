@@ -55,14 +55,14 @@ public class BaseTileEntity extends GenericTileEntity implements ITickableTileEn
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
         int oldpower = powerLevel;
-        this.read(packet.getTag());
+        this.load(packet.getTag());
         if (oldpower != powerLevel) {
             aabb = null;
         }
     }
 
     @Override
-    public void writeClientDataToNBT(CompoundNBT tagCompound) {
+    public void saveClientDataToNBT(CompoundNBT tagCompound) {
         save(tagCompound);
     }
 

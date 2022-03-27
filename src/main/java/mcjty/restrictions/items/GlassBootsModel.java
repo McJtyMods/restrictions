@@ -2,159 +2,86 @@ package mcjty.restrictions.items;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import mcjty.restrictions.Restrictions;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 
 public class GlassBootsModel extends HumanoidModel<LivingEntity> {
 
+    public static final ModelLayerLocation GLASS_BOOTS = new ModelLayerLocation(new ResourceLocation(Restrictions.MODID, "main"), "glass_boots");
     private static GlassBootsModel modelBoots;
 
-    private ModelPart bootsLeft;
-    private ModelPart bootsRight;
+    private final ModelPart bootsLeft;
+    private final ModelPart bootsRight;
 
 
-    // Boots
-    private ModelPart bootsleftfootbase;
-    private ModelPart bootsrightfootbase;
-    private ModelPart bootsleftback;
-    private ModelPart bootsrightback;
-    private ModelPart bootsleftfront;
-    private ModelPart bootsrightfront;
-    private ModelPart bootsrightside2;
-    private ModelPart bootsleftside2;
-    private ModelPart bootsleftside1;
-    private ModelPart bootsrightside1;
-    private ModelPart bootslefttip;
-    private ModelPart bootsrighttip;
+    public GlassBootsModel(ModelPart part) {
+        super(part);    // @todo 1.15 check constructor!
 
-    public GlassBootsModel() {
-        super(0.0f);    // @todo 1.15 check constructor!
-        texWidth = 64;
-        texHeight = 32;
-
-        setupBoots();
-
-        bootsLeft = new ModelPart(this, 0, 0);
-        bootsRight = new ModelPart(this, 0, 0);
-
-        bootsLeft.addChild(bootsleftback);
-        bootsLeft.addChild(bootsleftfootbase);
-        bootsLeft.addChild(bootsleftfront);
-        bootsLeft.addChild(bootsleftside1);
-        bootsLeft.addChild(bootsleftside2);
-        bootsLeft.addChild(bootslefttip);
-
-        bootsRight.addChild(bootsrightback);
-        bootsRight.addChild(bootsrightfootbase);
-        bootsRight.addChild(bootsrightfront);
-        bootsRight.addChild(bootsrightside1);
-        bootsRight.addChild(bootsrightside2);
-        bootsRight.addChild(bootsrighttip);
-
-        leftLeg.addChild(bootsLeft);
-        rightLeg.addChild(bootsRight);
+        bootsLeft = part.getChild("left_leg").getChild("boots_left");
+        bootsRight = part.getChild("right_leg").getChild("boots_right");
     }
 
-    private void setupBoots() {
+    public static LayerDefinition createBootsLayer() {
+        MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
+        PartDefinition partdefinition = meshdefinition.getRoot();
+
         float offY = 0;
+        PartDefinition leftLeg = partdefinition.getChild("left_leg");
+        PartDefinition bootsLeft = leftLeg.addOrReplaceChild("boots_left", CubeListBuilder.create(), PartPose.offset(-2, -12, 0));
+        bootsLeft.addOrReplaceChild("foot_base", CubeListBuilder.create()
+                        .texOffs(12, 0).addBox(0F, offY, 0F, 4, 0, 4).mirror(),
+                PartPose.offset(0, 24F, -2F));
+        bootsLeft.addOrReplaceChild("back", CubeListBuilder.create()
+                        .texOffs(0, 8).addBox(0F, offY, 0F, 4, 4, 2).mirror(),
+                PartPose.offset(0F, 20F, 2F));
+        bootsLeft.addOrReplaceChild("front", CubeListBuilder.create()
+                        .texOffs(0, 8).addBox(0F, offY, 0F, 4, 4, 2).mirror(),
+                PartPose.offset(0F, 20F, -4F));
+        bootsLeft.addOrReplaceChild("side2", CubeListBuilder.create()
+                        .texOffs(0, 0).addBox(0F, offY, 0F, 2, 4, 4).mirror(),
+                PartPose.offset(0F, 20F, -2F));
+        bootsLeft.addOrReplaceChild("side1", CubeListBuilder.create()
+                        .texOffs(0, 0).addBox(0F, offY, 0F, 2, 4, 4).mirror(),
+                PartPose.offset(4F, 20F, -2F));
+        bootsLeft.addOrReplaceChild("tip", CubeListBuilder.create()
+                        .texOffs(12, 4).addBox(0F, offY, 0F, 2, 3, 1).mirror(),
+                PartPose.offset(1F, 21F, -5F));
 
-        bootsleftfootbase = new ModelPart(this, 12, 0);
-        bootsleftfootbase.addBox(0F, offY, 0F, 4, 0, 4);
-        bootsleftfootbase.setPos(0F, 24F, -2F);
-        bootsleftfootbase.setTexSize(64, 32);
-        bootsleftfootbase.mirror = true;
-        setRotation(bootsleftfootbase, 0F, 0F, 0F);
+        PartDefinition rightLeg = partdefinition.getChild("right_leg");
+        PartDefinition bootsRight = rightLeg.addOrReplaceChild("boots_right", CubeListBuilder.create(), PartPose.offset(2, -12, 0));
+        bootsRight.addOrReplaceChild("foot_base", CubeListBuilder.create()
+                        .texOffs(12, 0).addBox(0F, offY, 0F, 4, 0, 4).mirror(),
+                PartPose.offset(-4F, 24F, -2F));
+        bootsRight.addOrReplaceChild("back", CubeListBuilder.create()
+                        .texOffs(0, 8).addBox(0F, offY, 0F, 4, 4, 2).mirror(),
+                PartPose.offset(-4F, 20F, 2F));
+        bootsRight.addOrReplaceChild("front", CubeListBuilder.create()
+                        .texOffs(0, 8).addBox(0F, offY, 0F, 4, 4, 2).mirror(),
+                PartPose.offset(-4F, 20F, -4F));
+        bootsRight.addOrReplaceChild("side2", CubeListBuilder.create()
+                        .texOffs(0, 0).addBox(0F, offY, 0F, 2, 4, 4).mirror(),
+                PartPose.offset(-2F, 20F, -2F));
+        bootsRight.addOrReplaceChild("side1", CubeListBuilder.create()
+                        .texOffs(0, 0).addBox(0F, offY, 0F, 2, 4, 4).mirror(),
+                PartPose.offset(-6F, 20F, -2F));
+        bootsRight.addOrReplaceChild("tip", CubeListBuilder.create()
+                        .texOffs(12, 4).addBox(0F, offY, 0F, 2, 3, 1).mirror(),
+                PartPose.offset(-3F, 21F, -5F));
 
-        bootsrightfootbase = new ModelPart(this, 12, 0);
-        bootsrightfootbase.addBox(0F, offY, 0F, 4, 0, 4);
-        bootsrightfootbase.setPos(-4F, 24F, -2F);
-        bootsrightfootbase.setTexSize(64, 32);
-        bootsrightfootbase.mirror = true;
-        setRotation(bootsrightfootbase, 0F, 0F, 0F);
-
-        bootsleftback = new ModelPart(this, 0, 8);
-        bootsleftback.addBox(0F, offY, 0F, 4, 4, 2);
-        bootsleftback.setPos(0F, 20F, 2F);
-        bootsleftback.setTexSize(64, 32);
-        bootsleftback.mirror = true;
-        setRotation(bootsleftback, 0F, 0F, 0F);
-
-        bootsrightback = new ModelPart(this, 0, 8);
-        bootsrightback.addBox(0F, offY, 0F, 4, 4, 2);
-        bootsrightback.setPos(-4F, 20F, 2F);
-        bootsrightback.setTexSize(64, 32);
-        bootsrightback.mirror = true;
-        setRotation(bootsrightback, 0F, 0F, 0F);
-
-        bootsleftfront = new ModelPart(this, 0, 8);
-        bootsleftfront.addBox(0F, offY, 0F, 4, 4, 2);
-        bootsleftfront.setPos(0F, 20F, -4F);
-        bootsleftfront.setTexSize(64, 32);
-        bootsleftfront.mirror = true;
-        setRotation(bootsleftfront, 0F, 0F, 0F);
-
-        bootsrightfront = new ModelPart(this, 0, 8);
-        bootsrightfront.addBox(0F, offY, 0F, 4, 4, 2);
-        bootsrightfront.setPos(-4F, 20F, -4F);
-        bootsrightfront.setTexSize(64, 32);
-        bootsrightfront.mirror = true;
-        setRotation(bootsrightfront, 0F, 0F, 0F);
-
-        bootsrightside2 = new ModelPart(this, 0, 0);
-        bootsrightside2.addBox(0F, offY, 0F, 2, 4, 4);
-        bootsrightside2.setPos(-2F, 20F, -2F);
-        bootsrightside2.setTexSize(64, 32);
-        bootsrightside2.mirror = true;
-        setRotation(bootsrightside2, 0F, 0F, 0F);
-
-        bootsleftside2 = new ModelPart(this, 0, 0);
-        bootsleftside2.addBox(0F, offY, 0F, 2, 4, 4);
-        bootsleftside2.setPos(0F, 20F, -2F);
-        bootsleftside2.setTexSize(64, 32);
-        bootsleftside2.mirror = true;
-        setRotation(bootsleftside2, 0F, 0F, 0F);
-
-        bootsleftside1 = new ModelPart(this, 0, 0);
-        bootsleftside1.addBox(0F, offY, 0F, 2, 4, 4);
-        bootsleftside1.setPos(4F, 20F, -2F);
-        bootsleftside1.setTexSize(64, 32);
-        bootsleftside1.mirror = true;
-        setRotation(bootsleftside1, 0F, 0F, 0F);
-
-        bootsrightside1 = new ModelPart(this, 0, 0);
-        bootsrightside1.addBox(0F, offY, 0F, 2, 4, 4);
-        bootsrightside1.setPos(-6F, 20F, -2F);
-        bootsrightside1.setTexSize(64, 32);
-        bootsrightside1.mirror = true;
-        setRotation(bootsrightside1, 0F, 0F, 0F);
-
-        bootslefttip = new ModelPart(this, 12, 4);
-        bootslefttip.addBox(0F, offY, 0F, 2, 3, 1);
-        bootslefttip.setPos(1F, 21F, -5F);
-        bootslefttip.setTexSize(64, 32);
-        bootslefttip.mirror = true;
-        setRotation(bootslefttip, 0F, 0F, 0F);
-
-        bootsrighttip = new ModelPart(this, 12, 4);
-        bootsrighttip.addBox(0F, offY, 0F, 2, 3, 1);
-        bootsrighttip.setPos(-3F, 21F, -5F);
-        bootsrighttip.setTexSize(64, 32);
-        bootsrighttip.mirror = true;
-        setRotation(bootsrighttip, 0F, 0F, 0F);
-    }
-
-    private void setRotation(ModelPart model, float x, float y, float z) {
-        model.xRot = x;
-        model.yRot = y;
-        model.zRot = z;
+        return LayerDefinition.create(meshdefinition, 64, 32);
     }
 
     public static <A extends HumanoidModel<?>> A getModel(LivingEntity entity, ItemStack stack) {
-
         if (stack.isEmpty() || !(stack.getItem() instanceof ArmorItem)) {
             return null;
         }
@@ -165,7 +92,7 @@ public class GlassBootsModel extends HumanoidModel<LivingEntity> {
             return (A) modelBoots;
         }
 
-        GlassBootsModel armor = new GlassBootsModel();
+        GlassBootsModel armor = new GlassBootsModel(Minecraft.getInstance().getEntityModels().bakeLayer(GLASS_BOOTS));
         armor.body.visible = false;
         armor.leftArm.visible = false;
         armor.rightArm.visible = false;
@@ -189,8 +116,8 @@ public class GlassBootsModel extends HumanoidModel<LivingEntity> {
 
 
     @Override
-    public void renderToBuffer(PoseStack matrixStack, VertexConsumer builder, int p_225598_3_, int p_225598_4_, float p_225598_5_, float p_225598_6_, float p_225598_7_, float p_225598_8_) {
-        super.renderToBuffer(matrixStack, builder, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer consumer, int p_225598_3_, int p_225598_4_, float p_225598_5_, float p_225598_6_, float p_225598_7_, float p_225598_8_) {
+        super.renderToBuffer(poseStack, consumer, p_225598_3_, p_225598_4_, p_225598_5_, p_225598_6_, p_225598_7_, p_225598_8_);
     }
 
     @Override

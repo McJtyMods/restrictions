@@ -3,37 +3,32 @@ package mcjty.restrictions.blocks;
 import mcjty.lib.blocks.BaseBlock;
 import mcjty.lib.builder.BlockBuilder;
 import mcjty.restrictions.items.GlassBoots;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.common.ToolType;
-
-import javax.annotation.Nonnull;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import static mcjty.lib.builder.TooltipBuilder.header;
 import static mcjty.lib.builder.TooltipBuilder.key;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class OneWayWall extends BaseBlock {
 
     public OneWayWall() {
         super(new BlockBuilder()
                 .properties(Properties.of(Material.GLASS)
-                        .harvestTool(ToolType.PICKAXE)
-                        .harvestLevel(0)
+//                        .harvestTool(ToolType.PICKAXE)    // @todo 1.18 tags
+//                        .harvestLevel(0)
                         .isSuffocating((state, reader, pos) -> false)
                         .isRedstoneConductor((state, reader, pos) -> false)
                         .strength(2.0f)
@@ -45,54 +40,48 @@ public class OneWayWall extends BaseBlock {
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         Direction direction = state.getValue(BlockStateProperties.FACING);
-        Entity entity = context.getEntity();
-        if (entity != null) {
-            if (entity instanceof PlayerEntity) {
-                ItemStack boots = ((PlayerEntity) entity).getItemBySlot(EquipmentSlotType.FEET);
-                if (!boots.isEmpty() && boots.getItem() instanceof GlassBoots) {
-                    return VoxelShapes.empty();
+        if (context instanceof EntityCollisionContext entityContext) {
+            Entity entity = entityContext.getEntity();
+            if (entity != null) {
+                if (entity instanceof Player player) {
+                    ItemStack boots = player.getItemBySlot(EquipmentSlot.FEET);
+                    if (!boots.isEmpty() && boots.getItem() instanceof GlassBoots) {
+                        return Shapes.empty();
+                    }
                 }
-            }
-            if (direction.getStepX() == 1) {
-                if (entity.getDeltaMovement().x() > 0) {
-                    return VoxelShapes.block();
+                if (direction.getStepX() == 1) {
+                    if (entity.getDeltaMovement().x() > 0) {
+                        return Shapes.block();
+                    }
+                } else if (direction.getStepX() == -1) {
+                    if (entity.getDeltaMovement().x() < 0) {
+                        return Shapes.block();
+                    }
                 }
-            } else if (direction.getStepX() == -1) {
-                if (entity.getDeltaMovement().x() < 0) {
-                    return VoxelShapes.block();
+                if (direction.getStepY() == 1) {
+                    if (entity.getDeltaMovement().y() > 0) {
+                        return Shapes.block();
+                    }
+                } else if (direction.getStepY() == -1) {
+                    if (entity.getDeltaMovement().y() < 0) {
+                        return Shapes.block();
+                    }
                 }
-            }
-            if (direction.getStepY() == 1) {
-                if (entity.getDeltaMovement().y() > 0) {
-                    return VoxelShapes.block();
-                }
-            } else if (direction.getStepY() == -1) {
-                if (entity.getDeltaMovement().y() < 0) {
-                    return VoxelShapes.block();
-                }
-            }
-            if (direction.getStepZ() == 1) {
-                if (entity.getDeltaMovement().z() > 0) {
-                    return VoxelShapes.block();
-                }
-            } else if (direction.getStepZ() == -1) {
-                if (entity.getDeltaMovement().z() < 0) {
-                    return VoxelShapes.block();
+                if (direction.getStepZ() == 1) {
+                    if (entity.getDeltaMovement().z() > 0) {
+                        return Shapes.block();
+                    }
+                } else if (direction.getStepZ() == -1) {
+                    if (entity.getDeltaMovement().z() < 0) {
+                        return Shapes.block();
+                    }
                 }
             }
         }
-        return VoxelShapes.empty();
+        return Shapes.empty();
     }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, PathType type) {
-//        return true;
-        return super.isPathfindable(state, reader, pos, type);
-    }
-
 
 //    @SuppressWarnings("deprecation")
 //    @Override
@@ -101,9 +90,8 @@ public class OneWayWall extends BaseBlock {
 //    }
 
 
-    @SuppressWarnings("deprecation")
     @Override
-    public int getLightBlock(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
+    public int getLightBlock(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return 15;   // Block light
     }
 }

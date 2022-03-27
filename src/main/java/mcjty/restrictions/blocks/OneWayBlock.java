@@ -3,35 +3,30 @@ package mcjty.restrictions.blocks;
 import mcjty.lib.blocks.BaseBlock;
 import mcjty.lib.builder.BlockBuilder;
 import mcjty.restrictions.items.GlassBoots;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
-
-import javax.annotation.Nonnull;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 
 import static mcjty.lib.builder.TooltipBuilder.header;
 import static mcjty.lib.builder.TooltipBuilder.key;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class OneWayBlock extends BaseBlock {
 
     public OneWayBlock() {
         super(new BlockBuilder()
                 .properties(Properties.of(Material.GLASS)
-                        .harvestTool(ToolType.PICKAXE)
-                        .harvestLevel(0)
+//                        .harvestTool(ToolType.PICKAXE)    // @todo 1.18 tags
+//                        .harvestLevel(0)
                         .isRedstoneConductor((state, reader, pos) -> false)
                         .isSuffocating((state, reader, pos) -> false)
                         .strength(2.0f)
@@ -44,17 +39,16 @@ public class OneWayBlock extends BaseBlock {
 
     private static final double SPEED = .2;
 
-    @SuppressWarnings("deprecation")
     @Override
-    public void entityInside(BlockState state, World world, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         Direction direction = world.getBlockState(pos).getValue(BlockStateProperties.FACING);
         if (!world.isClientSide) {
             entity.push(direction.getStepX() * SPEED, direction.getStepY() * SPEED, direction.getStepZ() * SPEED);
             if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
                 entity.fallDistance = 1.0F;
             }
-        } else if (entity instanceof PlayerEntity) {
-            ItemStack boots = ((PlayerEntity) entity).getItemBySlot(EquipmentSlotType.FEET);
+        } else if (entity instanceof Player) {
+            ItemStack boots = ((Player) entity).getItemBySlot(EquipmentSlot.FEET);
             if (boots.isEmpty() || !(boots.getItem() instanceof GlassBoots)) {
                 entity.push(direction.getStepX() * SPEED, direction.getStepY() * SPEED, direction.getStepZ() * SPEED);
                 if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
@@ -64,17 +58,13 @@ public class OneWayBlock extends BaseBlock {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public boolean isPathfindable(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, PathType type) {
+    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
         return true;
     }
 
-
-
-    @SuppressWarnings("deprecation")
     @Override
-    public int getLightBlock(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
+    public int getLightBlock(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return 0;   // Let light pass through
     }
 

@@ -1,7 +1,7 @@
 package mcjty.restrictions.setup;
 
 import mcjty.lib.setup.DefaultModSetup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class ModSetup extends DefaultModSetup {
 

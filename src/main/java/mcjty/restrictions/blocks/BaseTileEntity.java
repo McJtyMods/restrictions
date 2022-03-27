@@ -1,30 +1,32 @@
 package mcjty.restrictions.blocks;
 
 import mcjty.lib.tileentity.GenericTileEntity;
+import mcjty.lib.tileentity.TickingTileEntity;
 import mcjty.restrictions.items.GlassBoots;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
-public class BaseTileEntity extends GenericTileEntity implements ITickableTileEntity {
+public class BaseTileEntity extends TickingTileEntity {
 
-    private AxisAlignedBB aabb = null;
+    private AABB aabb = null;
     private final double speed;
 
-    public BaseTileEntity(TileEntityType<?> type, double speed) {
-        super(type);
+    public BaseTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, double speed) {
+        super(type, pos, state);
         this.speed = speed;
     }
 
@@ -34,17 +36,17 @@ public class BaseTileEntity extends GenericTileEntity implements ITickableTileEn
             powerLevel = powered;
             setChanged();
             BlockState state = level.getBlockState(getBlockPos());
-            level.sendBlockUpdated(getBlockPos(), state, state, Constants.BlockFlags.BLOCK_UPDATE);
+            level.sendBlockUpdated(getBlockPos(), state, state, Block.UPDATE_ALL);
         }
     }
 
-    protected AxisAlignedBB getBox() {
+    protected AABB getBox() {
         if (aabb == null) {
             assert level != null;
             Direction direction = level.getBlockState(getBlockPos()).getValue(BlockStateProperties.FACING);
-            aabb = new AxisAlignedBB(getBlockPos().relative(direction));
+            aabb = new AABB(getBlockPos().relative(direction));
             if (powerLevel > 1) {
-                aabb = aabb.minmax(new AxisAlignedBB(getBlockPos().relative(direction, powerLevel)));
+                aabb = aabb.minmax(new AABB(getBlockPos().relative(direction, powerLevel)));
             }
 
         }
@@ -52,39 +54,47 @@ public class BaseTileEntity extends GenericTileEntity implements ITickableTileEn
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
-        int oldpower = powerLevel;
-        this.read(packet.getTag());
-        if (oldpower != powerLevel) {
-            aabb = null;
+    public void loadClientDataFromNBT(CompoundTag tagCompound) {
+        if (tagCompound.contains("Info")) {
+            CompoundTag infoTag = tagCompound.getCompound("Info");
+            if (infoTag.contains("powered")) {
+                this.powerLevel = infoTag.getByte("powered");
+            }
         }
     }
 
+    @Override
+    public void saveClientDataToNBT(CompoundTag tagCompound) {
+        CompoundTag infoTag = this.getOrCreateInfo(tagCompound);
+        infoTag.putByte("powered", (byte)this.powerLevel);
+    }
 
     @Override
-    public void tick() {
+    protected void tickServer() {
         assert level != null;
         Direction direction = level.getBlockState(getBlockPos()).getValue(BlockStateProperties.FACING);
-        if (!level.isClientSide) {
-            if (powerLevel > 0) {
-                List<Entity> entities = level.getEntitiesOfClass(Entity.class, getBox());
-                for (Entity entity : entities) {
+        if (powerLevel > 0) {
+            List<Entity> entities = level.getEntitiesOfClass(Entity.class, getBox());
+            for (Entity entity : entities) {
+                entity.push(direction.getStepX() * speed, direction.getStepY() * speed, direction.getStepZ() * speed);
+                if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
+                    entity.fallDistance = 1.0F;
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void tickClient() {
+        if (powerLevel > 0) {
+            Direction direction = level.getBlockState(getBlockPos()).getValue(BlockStateProperties.FACING);
+            List<Player> entities = level.getEntitiesOfClass(Player.class, getBox());
+            for (Player entity : entities) {
+                ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET);
+                if (boots.isEmpty() || !(boots.getItem() instanceof GlassBoots)) {
                     entity.push(direction.getStepX() * speed, direction.getStepY() * speed, direction.getStepZ() * speed);
                     if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
                         entity.fallDistance = 1.0F;
-                    }
-                }
-            }
-        } else {
-            if (powerLevel > 0) {
-                List<Entity> entities = level.getEntitiesOfClass(PlayerEntity.class, getBox());
-                for (Entity entity : entities) {
-                    ItemStack boots = ((PlayerEntity) entity).getItemBySlot(EquipmentSlotType.FEET);
-                    if (boots.isEmpty() || !(boots.getItem() instanceof GlassBoots)) {
-                        entity.push(direction.getStepX() * speed, direction.getStepY() * speed, direction.getStepZ() * speed);
-                        if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
-                            entity.fallDistance = 1.0F;
-                        }
                     }
                 }
             }

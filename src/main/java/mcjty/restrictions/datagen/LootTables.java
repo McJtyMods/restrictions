@@ -12,9 +12,9 @@ public class LootTables extends BaseLootTableProvider {
 
     @Override
     protected void addTables() {
-        lootTables.put(Registration.ATTRACTOR.get(), createStandardTable("attractor", Registration.ATTRACTOR.get()));
-        lootTables.put(Registration.ONEWAY.get(), createStandardTable("oneway", Registration.ONEWAY.get()));
-        lootTables.put(Registration.ONEWAY_WALL.get(), createStandardTable("oneway_wall", Registration.ONEWAY_WALL.get()));
-        lootTables.put(Registration.PUSHER.get(), createStandardTable("pusher", Registration.PUSHER.get()));
-}
+        lootTables.put(Registration.ATTRACTOR.get(), createStandardTable("attractor", Registration.ATTRACTOR.get(), Registration.TYPE_ATTRACTOR.get()));
+        addSimpleTable(Registration.ONEWAY.get());
+        addSimpleTable(Registration.ONEWAY_WALL.get());
+        lootTables.put(Registration.PUSHER.get(), createStandardTable("pusher", Registration.PUSHER.get(), Registration.TYPE_PUSHER.get()));
+    }
 }

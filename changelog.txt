@@ -1,3 +1,6 @@
+1.18-4.0.0:
+- Port to 1.18.2. Thanks to Mrbysco
+
 1.16-3.0.3:
 - Update to latest McJtyLib
 

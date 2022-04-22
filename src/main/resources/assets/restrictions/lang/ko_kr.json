@@ -1,0 +1,16 @@
+{
+    "block.restrictions.pusher": "푸셔",
+    "block.restrictions.attractor": "어트랙터",
+    "block.restrictions.oneway": "일방 통행",
+    "block.restrictions.oneway_wall": "일방 통행 벽",
+    "item.restrictions.glassboots": "유리 부츠",
+
+    "itemGroup.restrictions": "Restrictions",
+
+    "message.restrictions.shiftmessage": "<Shift를 누르세요>",
+    "message.restrictions.glassboots.header": "당신이 이 부츠를 신으면 어트랙터, 푸셔 및 일방 통행은 당신에게 영향을 미치지 않을 것입니다",
+    "message.restrictions.attractor.header": "이 블록은 엔티티, 아이템, 몹, 플레이어 등을 받은 레드스톤 신호 세기와 동일한 거리만큼 밀어냅니다.",
+    "message.restrictions.pusher.header":  "이 블록은 엔티티, 아이템, 몹, 플레이어 등을 받은 레드스톤 신호 세기와 동일한 거리만큼 밀어냅니다.",
+    "message.restrictions.oneway.header": "이것은 개체, 아이템, 몹, 플레이어 등을 강제로 특정 방향으로 이동시킵니다.",
+    "message.restrictions.oneway_wall.header": "이 블록은 엔티티, 아이템, 몹, 플레이어 등 만이 특정 방향으로 이동할 수 있도록 합니다."
+}

@@ -13,8 +13,10 @@ import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
@@ -34,7 +36,7 @@ public class GlassBoots extends ArmorItem implements ITooltipSettings {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag flags) {
         super.appendHoverText(itemStack, level, list, flags);
-        tooltipBuilder.makeTooltip(getRegistryName(), itemStack, list, flags);
+        tooltipBuilder.makeTooltip(ForgeRegistries.ITEMS.getKey(this), itemStack, list, flags);
     }
 
     @Override
@@ -43,11 +45,12 @@ public class GlassBoots extends ArmorItem implements ITooltipSettings {
     }
 
     @Override
-    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-        consumer.accept(new IItemRenderProperties() {
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
             @Override
-            public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
-                return GlassBootsModel.getModel(entityLiving, itemStack);
+            @Nonnull
+            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                return GlassBootsModel.getModel(livingEntity, itemStack);
             }
         });
     }

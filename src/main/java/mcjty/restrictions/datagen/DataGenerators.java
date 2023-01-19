@@ -1,19 +1,95 @@
 package mcjty.restrictions.datagen;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import mcjty.lib.datagen.DataGen;
+import mcjty.lib.datagen.Dob;
+import mcjty.restrictions.setup.Registration;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
-    @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        generator.addProvider(event.includeServer(), new Recipes(generator));
-        generator.addProvider(event.includeServer(), new LootTables(generator));
-        generator.addProvider(event.includeServer(), new BlockTags(generator, event.getExistingFileHelper()));
-        generator.addProvider(event.includeClient(), new BlockStates(generator, event.getExistingFileHelper()));
+    public static void datagen(DataGen datagen) {
+        datagen.add(
+                Dob.blockBuilder(Registration.ATTRACTOR)
+                        .ironPickaxeTags()
+                        .standardLoot(Registration.TYPE_ATTRACTOR)
+                        .blockState(p -> {
+                            p.orientedBlock(Registration.ATTRACTOR.get(), p.models().cube("attractor",
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/attractor"),
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/side"))
+                                    .texture("particle", p.modLoc("block/side")));
+                        })
+                        .shaped(builder -> builder.shaped(Registration.ATTRACTOR.get())
+                                        .define('f', Items.FEATHER)
+                                        .define('P', Blocks.STICKY_PISTON)
+                                        .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
+                                "frf", "rPr", "frf"),
+                Dob.blockBuilder(Registration.ONEWAY)
+                        .ironPickaxeTags()
+                        .simpleLoot()
+                        .blockState(p -> {
+                            p.orientedBlock(Registration.ONEWAY.get(), p.models().cube("oneway",
+                                            p.modLoc("block/sideone"),
+                                            p.modLoc("block/sideone"),
+                                            p.modLoc("block/onewayn"),
+                                            p.modLoc("block/oneways"),
+                                            p.modLoc("block/sideone"),
+                                            p.modLoc("block/sideone"))
+                                    .texture("particle", p.modLoc("block/sideone")));
+                        })
+                        .shaped(builder -> builder.shaped(Registration.ONEWAY.get())
+                                        .define('f', Tags.Items.SLIMEBALLS)
+                                        .define('P', Items.RAIL)
+                                        .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
+                                "frf", "rPr", "frf"),
+                Dob.blockBuilder(Registration.PUSHER)
+                        .ironPickaxeTags()
+                        .standardLoot(Registration.TYPE_PUSHER)
+                        .blockState(p -> {
+                            p.orientedBlock(Registration.PUSHER.get(), p.models().cube("pusher",
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/pusher"),
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/side"))
+                                    .texture("particle", p.modLoc("block/side")));
+                        })
+                        .shaped(builder -> builder.shaped(Registration.PUSHER.get())
+                                        .define('f', Items.FEATHER)
+                                        .define('P', Blocks.PISTON)
+                                        .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
+                                "frf", "rPr", "frf"),
+                Dob.blockBuilder(Registration.ONEWAY_WALL)
+                        .ironPickaxeTags()
+                        .simpleLoot()
+                        .blockState(p -> {
+                            p.orientedBlock(Registration.ONEWAY_WALL.get(), p.models().cube("oneway_wall",
+                                            p.modLoc("block/sideone"),
+                                            p.modLoc("block/sideone"),
+                                            p.modLoc("block/sideone"),
+                                            p.modLoc("block/side"),
+                                            p.modLoc("block/sideone"),
+                                            p.modLoc("block/sideone"))
+                                    .texture("particle", p.modLoc("block/sideone")));
+                        })
+                        .shaped(builder -> builder.shaped(Registration.ONEWAY_WALL.get())
+                                        .define('f', Tags.Items.SLIMEBALLS)
+                                        .define('P', Tags.Items.GLASS)
+                                        .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
+                                "frf", "rPr", "frf"),
+                Dob.itemBuilder(Registration.GLASSBOOTS)
+                        .shaped(builder -> builder.shaped(Registration.GLASSBOOTS.get())
+                                        .define('g', Tags.Items.GLASS_PANES)
+                                        .unlockedBy("glass", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GLASS)),
+                                "   ", "g g", "G G")
+        );
     }
 }

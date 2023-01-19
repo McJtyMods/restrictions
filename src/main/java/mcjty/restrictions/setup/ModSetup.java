@@ -1,12 +1,13 @@
 package mcjty.restrictions.setup;
 
 import mcjty.lib.setup.DefaultModSetup;
+import mcjty.restrictions.Restrictions;
 import net.minecraft.world.item.ItemStack;
 
 public class ModSetup extends DefaultModSetup {
 
     public ModSetup() {
-        createTab("restrictions", () -> new ItemStack(Registration.ATTRACTOR.get()));
+        createTab(Restrictions.MODID, "restrictions", () -> new ItemStack(Registration.ATTRACTOR.get()));
     }
 
     @Override

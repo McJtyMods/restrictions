@@ -14,7 +14,7 @@ public class DataGenerators {
     public static void datagen(DataGen datagen) {
         datagen.add(
                 Dob.blockBuilder(Registration.ATTRACTOR)
-                        .ironPickaxeTags()
+                        .stonePickaxeTags()
                         .standardLoot(Registration.TYPE_ATTRACTOR)
                         .blockState(p -> {
                             p.orientedBlock(Registration.ATTRACTOR.get(), p.models().cube("attractor",
@@ -32,7 +32,7 @@ public class DataGenerators {
                                         .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
                                 "frf", "rPr", "frf"),
                 Dob.blockBuilder(Registration.ONEWAY)
-                        .ironPickaxeTags()
+                        .stonePickaxeTags()
                         .simpleLoot()
                         .blockState(p -> {
                             p.orientedBlock(Registration.ONEWAY.get(), p.models().cube("oneway",
@@ -50,7 +50,7 @@ public class DataGenerators {
                                         .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
                                 "frf", "rPr", "frf"),
                 Dob.blockBuilder(Registration.PUSHER)
-                        .ironPickaxeTags()
+                        .stonePickaxeTags()
                         .standardLoot(Registration.TYPE_PUSHER)
                         .blockState(p -> {
                             p.orientedBlock(Registration.PUSHER.get(), p.models().cube("pusher",
@@ -68,7 +68,7 @@ public class DataGenerators {
                                         .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
                                 "frf", "rPr", "frf"),
                 Dob.blockBuilder(Registration.ONEWAY_WALL)
-                        .ironPickaxeTags()
+                        .stonePickaxeTags()
                         .simpleLoot()
                         .blockState(p -> {
                             p.orientedBlock(Registration.ONEWAY_WALL.get(), p.models().cube("oneway_wall",

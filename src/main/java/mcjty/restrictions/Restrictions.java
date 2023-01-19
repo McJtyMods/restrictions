@@ -30,6 +30,7 @@ public class Restrictions {
         Registration.register();
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(setup::init);
+        bus.addListener(this::onDataGen);
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             bus.addListener(ClientSetup::init);

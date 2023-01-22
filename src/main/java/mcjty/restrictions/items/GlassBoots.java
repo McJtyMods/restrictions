@@ -30,7 +30,7 @@ public class GlassBoots extends ArmorItem implements ITooltipSettings {
             .infoShift(header(), gold());
 
     public GlassBoots() {
-        super(ArmorMaterials.LEATHER, EquipmentSlot.FEET, new Properties().tab(Restrictions.setup.getTab()));
+        super(ArmorMaterials.LEATHER, EquipmentSlot.FEET, Restrictions.setup.defaultProperties());
     }
 
     @Override

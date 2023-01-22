@@ -4,7 +4,6 @@ import mcjty.lib.datagen.DataGen;
 import mcjty.lib.datagen.Dob;
 import mcjty.restrictions.setup.Registration;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
@@ -26,7 +25,7 @@ public class DataGenerators {
                                             p.modLoc("block/side"))
                                     .texture("particle", p.modLoc("block/side")));
                         })
-                        .shaped(builder -> builder.shaped(Registration.ATTRACTOR.get())
+                        .shaped(builder -> builder
                                         .define('f', Items.FEATHER)
                                         .define('P', Blocks.STICKY_PISTON)
                                         .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
@@ -44,7 +43,7 @@ public class DataGenerators {
                                             p.modLoc("block/sideone"))
                                     .texture("particle", p.modLoc("block/sideone")));
                         })
-                        .shaped(builder -> builder.shaped(Registration.ONEWAY.get())
+                        .shaped(builder -> builder
                                         .define('f', Tags.Items.SLIMEBALLS)
                                         .define('P', Items.RAIL)
                                         .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
@@ -62,7 +61,7 @@ public class DataGenerators {
                                             p.modLoc("block/side"))
                                     .texture("particle", p.modLoc("block/side")));
                         })
-                        .shaped(builder -> builder.shaped(Registration.PUSHER.get())
+                        .shaped(builder -> builder
                                         .define('f', Items.FEATHER)
                                         .define('P', Blocks.PISTON)
                                         .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
@@ -80,13 +79,13 @@ public class DataGenerators {
                                             p.modLoc("block/sideone"))
                                     .texture("particle", p.modLoc("block/sideone")));
                         })
-                        .shaped(builder -> builder.shaped(Registration.ONEWAY_WALL.get())
+                        .shaped(builder -> builder
                                         .define('f', Tags.Items.SLIMEBALLS)
                                         .define('P', Tags.Items.GLASS)
                                         .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
                                 "frf", "rPr", "frf"),
                 Dob.itemBuilder(Registration.GLASSBOOTS)
-                        .shaped(builder -> builder.shaped(Registration.GLASSBOOTS.get())
+                        .shaped(builder -> builder
                                         .define('g', Tags.Items.GLASS_PANES)
                                         .unlockedBy("glass", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GLASS)),
                                 "   ", "g g", "G G")

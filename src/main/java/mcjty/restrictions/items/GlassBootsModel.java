@@ -2,6 +2,7 @@ package mcjty.restrictions.items;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import mcjty.lib.items.GenericArmorItem;
 import mcjty.restrictions.Restrictions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -85,7 +86,7 @@ public class GlassBootsModel extends HumanoidModel<LivingEntity> {
         if (stack.isEmpty() || !(stack.getItem() instanceof ArmorItem)) {
             return null;
         }
-        EquipmentSlot slot = ((ArmorItem) stack.getItem()).getSlot();
+        EquipmentSlot slot = GenericArmorItem.getSlotForItem(stack);
 
         if (slot == EquipmentSlot.FEET && modelBoots != null) {
             //noinspection unchecked

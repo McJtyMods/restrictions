@@ -23,7 +23,7 @@ Upcoming:
 - First port to 1.16.2!
 
 2.0.0-beta:
-- First port to 1.15.2!
+- First port to 1.15.2
 
 1.3.10:
 - Updates to the latest McJtyLib

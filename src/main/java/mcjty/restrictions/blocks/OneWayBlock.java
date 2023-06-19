@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 
 import static mcjty.lib.builder.TooltipBuilder.header;
@@ -24,7 +23,7 @@ public class OneWayBlock extends BaseBlock {
 
     public OneWayBlock() {
         super(new BlockBuilder()
-                .properties(Properties.of(Material.GLASS)
+                .properties(Properties.of()
 //                        .harvestTool(ToolType.PICKAXE)    // @todo 1.18 tags
 //                        .harvestLevel(0)
                         .isRedstoneConductor((state, reader, pos) -> false)

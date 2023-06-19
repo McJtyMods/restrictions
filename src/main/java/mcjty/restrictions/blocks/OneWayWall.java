@@ -13,7 +13,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -26,7 +25,7 @@ public class OneWayWall extends BaseBlock {
 
     public OneWayWall() {
         super(new BlockBuilder()
-                .properties(Properties.of(Material.GLASS)
+                .properties(Properties.of()
 //                        .harvestTool(ToolType.PICKAXE)    // @todo 1.18 tags
 //                        .harvestLevel(0)
                         .isSuffocating((state, reader, pos) -> false)

@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 
 import static mcjty.lib.builder.TooltipBuilder.header;
 import static mcjty.lib.builder.TooltipBuilder.key;
@@ -20,7 +19,7 @@ public class AttractorTileEntity extends BaseTileEntity {
 
     public static BaseBlock createBlock() {
         return new BaseBlock(new BlockBuilder()
-                .properties(Block.Properties.of(Material.METAL)
+                .properties(Block.Properties.of()
                         .strength(2.0f)
                         .sound(SoundType.METAL))
                 .tileEntitySupplier(AttractorTileEntity::new)

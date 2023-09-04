@@ -3,6 +3,7 @@ package mcjty.restrictions.blocks;
 import mcjty.lib.tileentity.GenericTileEntity;
 import mcjty.lib.tileentity.TickingTileEntity;
 import mcjty.restrictions.items.GlassBoots;
+import mcjty.restrictions.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -87,14 +88,17 @@ public class BaseTileEntity extends TickingTileEntity {
     @Override
     protected void tickClient() {
         if (powerLevel > 0) {
-            Direction direction = level.getBlockState(getBlockPos()).getValue(BlockStateProperties.FACING);
-            List<Player> entities = level.getEntitiesOfClass(Player.class, getBox());
-            for (Player entity : entities) {
-                ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET);
-                if (boots.isEmpty() || !(boots.getItem() instanceof GlassBoots)) {
-                    entity.push(direction.getStepX() * speed, direction.getStepY() * speed, direction.getStepZ() * speed);
-                    if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
-                        entity.fallDistance = 1.0F;
+            BlockState state = level.getBlockState(getBlockPos());
+            Direction direction = state.getValue(BlockStateProperties.FACING);
+            if (state.getBlock() == Registration.ATTRACTOR.get() || state.getBlock() == Registration.PUSHER.get()) {
+                List<Player> entities = level.getEntitiesOfClass(Player.class, getBox());
+                for (Player entity : entities) {
+                    ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET);
+                    if (boots.isEmpty() || !(boots.getItem() instanceof GlassBoots)) {
+                        entity.push(direction.getStepX() * speed, direction.getStepY() * speed, direction.getStepZ() * speed);
+                        if (direction == Direction.UP && entity.getDeltaMovement().y > -0.5D) {
+                            entity.fallDistance = 1.0F;
+                        }
                     }
                 }
             }

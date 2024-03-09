@@ -36,7 +36,7 @@ public class GlassBoots extends GenericArmorItem implements ITooltipSettings {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag flags) {
         super.appendHoverText(itemStack, level, list, flags);
-        tooltipBuilder.makeTooltip(ForgeRegistries.ITEMS.getKey(this), itemStack, list, flags);
+        tooltipBuilder.makeTooltip(BuiltInRegistries.ITEM.getKey(this), itemStack, list, flags);
     }
 
     @Override

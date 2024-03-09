@@ -1,9 +1,7 @@
 package mcjty.restrictions.setup;
 
 
-import mcjty.lib.setup.DeferredBlock;
 import mcjty.lib.setup.DeferredBlocks;
-import mcjty.lib.setup.DeferredItem;
 import mcjty.lib.setup.DeferredItems;
 import mcjty.restrictions.Restrictions;
 import mcjty.restrictions.blocks.AttractorTileEntity;

@@ -1,14 +1,11 @@
 package mcjty.restrictions.blocks;
 
-import mcjty.lib.tileentity.GenericTileEntity;
 import mcjty.lib.tileentity.TickingTileEntity;
 import mcjty.restrictions.items.GlassBoots;
 import mcjty.restrictions.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;

@@ -6,12 +6,10 @@ import mcjty.restrictions.setup.ClientSetup;
 import mcjty.restrictions.setup.ModSetup;
 import mcjty.restrictions.setup.Registration;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.api.distmarker.Dist;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.fml.common.Mod;
-import net.neoforged.neoforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.neoforged.neoforge.fml.loading.FMLEnvironment;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.function.Supplier;
 
@@ -25,10 +23,7 @@ public class Restrictions {
     public static ModSetup setup = new ModSetup();
     public static Restrictions instance;
 
-    public Restrictions() {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        Dist dist = FMLEnvironment.dist;
-
+    public Restrictions(IEventBus bus, Dist dist) {
         instance = this;
         Registration.register(bus);
         bus.addListener(setup::init);

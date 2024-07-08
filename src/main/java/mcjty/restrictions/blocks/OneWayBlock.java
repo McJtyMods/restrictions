@@ -58,7 +58,7 @@ public class OneWayBlock extends BaseBlock {
     }
 
     @Override
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+    protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
         return true;
     }
 

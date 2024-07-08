@@ -5,19 +5,20 @@ import mcjty.lib.items.GenericArmorItem;
 import mcjty.lib.tooltips.ITooltipSettings;
 import mcjty.restrictions.Restrictions;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -34,14 +35,14 @@ public class GlassBoots extends GenericArmorItem implements ITooltipSettings {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag flags) {
-        super.appendHoverText(itemStack, level, list, flags);
+    public void appendHoverText(ItemStack itemStack, TooltipContext pContext, List<Component> list, TooltipFlag flags) {
+        super.appendHoverText(itemStack, pContext, list, flags);
         tooltipBuilder.makeTooltip(BuiltInRegistries.ITEM.getKey(this), itemStack, list, flags);
     }
 
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return Restrictions.MODID+":textures/item/textureboots.png";
+    public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+        return ResourceLocation.fromNamespaceAndPath(Restrictions.MODID, "textures/item/textureboots.png");
     }
 
     @Override

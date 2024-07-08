@@ -81,7 +81,7 @@ public class DataGenerators {
                         })
                         .shaped(builder -> builder
                                         .define('f', Tags.Items.SLIMEBALLS)
-                                        .define('P', Tags.Items.GLASS)
+                                        .define('P', Tags.Items.GLASS_BLOCKS)
                                         .unlockedBy("redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE)),
                                 "frf", "rPr", "frf"),
                 Dob.itemBuilder(Registration.GLASSBOOTS)

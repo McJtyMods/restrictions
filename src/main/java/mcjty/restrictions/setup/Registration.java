@@ -9,15 +9,17 @@ import mcjty.restrictions.blocks.OneWayBlock;
 import mcjty.restrictions.blocks.OneWayWall;
 import mcjty.restrictions.blocks.PusherTileEntity;
 import mcjty.restrictions.items.GlassBoots;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
@@ -28,7 +30,7 @@ public class Registration {
 
     public static final DeferredItems ITEMS = DeferredItems.create(MODID);
     public static final DeferredBlocks BLOCKS = DeferredBlocks.create(MODID);
-    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static void register(IEventBus bus) {
@@ -58,7 +60,7 @@ public class Registration {
         return Restrictions.setup.defaultProperties();
     }
 
-    public static RegistryObject<CreativeModeTab> TAB = TABS.register("restrictions", () -> CreativeModeTab.builder()
+    public static DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = TABS.register("restrictions", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + MODID))
             .icon(() -> new ItemStack(ATTRACTOR.get()))
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)

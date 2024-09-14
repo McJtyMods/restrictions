@@ -4,9 +4,9 @@
       "model": "restrictions:block/pusher",
       "x": 90
     },
-    "facing=up": {
+    "facing=east": {
       "model": "restrictions:block/pusher",
-      "x": -90
+      "y": 90
     },
     "facing=north": {
       "model": "restrictions:block/pusher"
@@ -15,13 +15,13 @@
       "model": "restrictions:block/pusher",
       "y": 180
     },
+    "facing=up": {
+      "model": "restrictions:block/pusher",
+      "x": -90
+    },
     "facing=west": {
       "model": "restrictions:block/pusher",
       "y": 270
-    },
-    "facing=east": {
-      "model": "restrictions:block/pusher",
-      "y": 90
     }
   }
 }

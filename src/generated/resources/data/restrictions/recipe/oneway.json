@@ -1,23 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "restrictions",
-  "pattern": [
-    "frf",
-    "rPr",
-    "frf"
-  ],
+  "category": "misc",
   "key": {
-    "f": {
-      "tag": "forge:slimeballs"
-    },
     "P": {
       "item": "minecraft:rail"
+    },
+    "f": {
+      "tag": "c:slimeballs"
     },
     "r": {
       "item": "minecraft:redstone"
     }
   },
+  "pattern": [
+    "frf",
+    "rPr",
+    "frf"
+  ],
   "result": {
-    "item": "restrictions:oneway"
+    "count": 1,
+    "id": "restrictions:oneway"
   }
 }

@@ -2,11 +2,11 @@
   "parent": "minecraft:block/cube",
   "textures": {
     "down": "restrictions:block/sideone",
-    "up": "restrictions:block/sideone",
-    "north": "restrictions:block/sideone",
-    "south": "restrictions:block/side",
     "east": "restrictions:block/sideone",
-    "west": "restrictions:block/sideone",
-    "particle": "restrictions:block/sideone"
+    "north": "restrictions:block/sideone",
+    "particle": "restrictions:block/sideone",
+    "south": "restrictions:block/side",
+    "up": "restrictions:block/sideone",
+    "west": "restrictions:block/sideone"
   }
 }

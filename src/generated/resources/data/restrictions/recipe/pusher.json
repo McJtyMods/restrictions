@@ -1,23 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "restrictions",
-  "pattern": [
-    "frf",
-    "rPr",
-    "frf"
-  ],
+  "category": "misc",
   "key": {
-    "f": {
-      "item": "minecraft:feather"
-    },
     "P": {
       "item": "minecraft:piston"
+    },
+    "f": {
+      "item": "minecraft:feather"
     },
     "r": {
       "item": "minecraft:redstone"
     }
   },
+  "pattern": [
+    "frf",
+    "rPr",
+    "frf"
+  ],
   "result": {
-    "item": "restrictions:pusher"
+    "count": 1,
+    "id": "restrictions:pusher"
   }
 }

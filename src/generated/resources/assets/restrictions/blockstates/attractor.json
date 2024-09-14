@@ -4,9 +4,9 @@
       "model": "restrictions:block/attractor",
       "x": 90
     },
-    "facing=up": {
+    "facing=east": {
       "model": "restrictions:block/attractor",
-      "x": -90
+      "y": 90
     },
     "facing=north": {
       "model": "restrictions:block/attractor"
@@ -15,13 +15,13 @@
       "model": "restrictions:block/attractor",
       "y": 180
     },
+    "facing=up": {
+      "model": "restrictions:block/attractor",
+      "x": -90
+    },
     "facing=west": {
       "model": "restrictions:block/attractor",
       "y": 270
-    },
-    "facing=east": {
-      "model": "restrictions:block/attractor",
-      "y": 90
     }
   }
 }

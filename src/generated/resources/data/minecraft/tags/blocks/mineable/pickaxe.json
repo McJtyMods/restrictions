@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "restrictions:pusher",
-    "restrictions:attractor",
-    "restrictions:oneway",
-    "restrictions:oneway_wall"
-  ]
-}

@@ -14,7 +14,7 @@ public class DataGenerators {
         datagen.add(
                 Dob.blockBuilder(Registration.ATTRACTOR)
                         .stonePickaxeTags()
-                        .standardLoot(Registration.TYPE_ATTRACTOR)
+                        .standardLoot()
                         .blockState(p -> {
                             p.orientedBlock(Registration.ATTRACTOR.get(), p.models().cube("attractor",
                                             p.modLoc("block/side"),
@@ -50,7 +50,7 @@ public class DataGenerators {
                                 "frf", "rPr", "frf"),
                 Dob.blockBuilder(Registration.PUSHER)
                         .stonePickaxeTags()
-                        .standardLoot(Registration.TYPE_PUSHER)
+                        .standardLoot()
                         .blockState(p -> {
                             p.orientedBlock(Registration.PUSHER.get(), p.models().cube("pusher",
                                             p.modLoc("block/side"),

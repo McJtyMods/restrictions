@@ -1,14 +1,12 @@
 package mcjty.restrictions.blocks;
 
-import mcjty.lib.tileentity.GenericTileEntity;
+import mcjty.lib.tileentity.BaseBEData;
 import mcjty.lib.tileentity.TickingTileEntity;
 import mcjty.restrictions.items.GlassBoots;
 import mcjty.restrictions.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -33,8 +31,8 @@ public class BaseTileEntity extends TickingTileEntity {
 
     @Override
     public void setPowerInput(int powered) {
-        if (powerLevel != powered) {
-            powerLevel = powered;
+        if (this.powerLevel != powered) {
+            this.powerLevel = (byte) powered;
             setChanged();
             BlockState state = level.getBlockState(getBlockPos());
             level.sendBlockUpdated(getBlockPos(), state, state, Block.UPDATE_ALL);
@@ -46,8 +44,8 @@ public class BaseTileEntity extends TickingTileEntity {
             assert level != null;
             Direction direction = level.getBlockState(getBlockPos()).getValue(BlockStateProperties.FACING);
             aabb = new AABB(getBlockPos().relative(direction));
-            if (powerLevel > 1) {
-                aabb = aabb.minmax(new AABB(getBlockPos().relative(direction, powerLevel)));
+            if (this.powerLevel > 1) {
+                aabb = aabb.minmax(new AABB(getBlockPos().relative(direction, this.powerLevel)));
             }
 
         }
@@ -55,26 +53,20 @@ public class BaseTileEntity extends TickingTileEntity {
     }
 
     @Override
-    public void loadClientDataFromNBT(CompoundTag tagCompound) {
-        if (tagCompound.contains("Info")) {
-            CompoundTag infoTag = tagCompound.getCompound("Info");
-            if (infoTag.contains("powered")) {
-                this.powerLevel = infoTag.getByte("powered");
-            }
-        }
+    public void loadClientDataFromNBT(CompoundTag tag) {
+        powerLevel = tag.getByte("powered");
     }
 
     @Override
-    public void saveClientDataToNBT(CompoundTag tagCompound) {
-        CompoundTag infoTag = this.getOrCreateInfo(tagCompound);
-        infoTag.putByte("powered", (byte)this.powerLevel);
+    public void saveClientDataToNBT(CompoundTag tag) {
+        tag.putByte("powered", powerLevel);
     }
 
     @Override
     protected void tickServer() {
         assert level != null;
         Direction direction = level.getBlockState(getBlockPos()).getValue(BlockStateProperties.FACING);
-        if (powerLevel > 0) {
+        if (this.powerLevel > 0) {
             List<Entity> entities = level.getEntitiesOfClass(Entity.class, getBox());
             for (Entity entity : entities) {
                 entity.push(direction.getStepX() * speed, direction.getStepY() * speed, direction.getStepZ() * speed);
@@ -87,7 +79,7 @@ public class BaseTileEntity extends TickingTileEntity {
 
     @Override
     protected void tickClient() {
-        if (powerLevel > 0) {
+        if (this.powerLevel > 0) {
             BlockState state = level.getBlockState(getBlockPos());
             Direction direction = state.getValue(BlockStateProperties.FACING);
             if (state.getBlock() == Registration.ATTRACTOR.get() || state.getBlock() == Registration.PUSHER.get()) {

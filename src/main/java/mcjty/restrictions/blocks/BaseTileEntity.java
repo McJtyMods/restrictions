@@ -1,11 +1,11 @@
 package mcjty.restrictions.blocks;
 
-import mcjty.lib.tileentity.BaseBEData;
 import mcjty.lib.tileentity.TickingTileEntity;
 import mcjty.restrictions.items.GlassBoots;
 import mcjty.restrictions.setup.Registration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -53,12 +53,12 @@ public class BaseTileEntity extends TickingTileEntity {
     }
 
     @Override
-    public void loadClientDataFromNBT(CompoundTag tag) {
+    public void loadClientDataFromNBT(CompoundTag tag, HolderLookup.Provider provider) {
         powerLevel = tag.getByte("powered");
     }
 
     @Override
-    public void saveClientDataToNBT(CompoundTag tag) {
+    public void saveClientDataToNBT(CompoundTag tag, HolderLookup.Provider provider) {
         tag.putByte("powered", powerLevel);
     }
 

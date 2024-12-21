@@ -86,8 +86,8 @@ public class BaseTileEntity extends TickingTileEntity {
     protected void tickClient() {
         if (powerLevel > 0) {
             BlockState state = level.getBlockState(getBlockPos());
-            Direction direction = state.getValue(BlockStateProperties.FACING);
             if (state.getBlock() == Registration.ATTRACTOR.get() || state.getBlock() == Registration.PUSHER.get()) {
+                Direction direction = state.getValue(BlockStateProperties.FACING);
                 List<Player> entities = level.getEntitiesOfClass(Player.class, getBox());
                 for (Player entity : entities) {
                     ItemStack boots = entity.getItemBySlot(EquipmentSlot.FEET);

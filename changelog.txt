@@ -1,3 +1,6 @@
+1.20-6.0.3:
+- Fixed a bug where on servers the client could crash
+
 1.20-6.0.2:
 - Update to latest McJtyLib
 

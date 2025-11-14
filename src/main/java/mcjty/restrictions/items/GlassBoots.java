@@ -16,11 +16,11 @@ import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static mcjty.lib.builder.TooltipBuilder.*;
 
@@ -45,14 +45,13 @@ public class GlassBoots extends GenericArmorItem implements ITooltipSettings {
         return ResourceLocation.fromNamespaceAndPath(Restrictions.MODID, "textures/item/textureboots.png");
     }
 
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
+    public static @NotNull IClientItemExtensions getExtensions() {
+        return new IClientItemExtensions() {
             @Override
             @Nonnull
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                 return GlassBootsModel.getModel(livingEntity, itemStack);
             }
-        });
+        };
     }
 }

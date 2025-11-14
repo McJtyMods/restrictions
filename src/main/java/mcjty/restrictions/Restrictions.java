@@ -32,11 +32,12 @@ public class Restrictions {
         if (dist.isClient()) {
             bus.addListener(ClientSetup::init);
             bus.addListener(ClientSetup::registerLayerDefinitions);
+            bus.addListener(ClientSetup::onClientExtensionRegistration);
         }
     }
 
     public static <T extends Item> Supplier<T> tab(Supplier<T> supplier) {
-        return instance.setup.tab(supplier);
+        return setup.tab(supplier);
     }
 
     private void onDataGen(GatherDataEvent event) {
